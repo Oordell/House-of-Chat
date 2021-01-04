@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { LogBox } from "react-native";
 import db from "./app/config/db";
 import ChatRoomsScreen from "./app/screens/ChatRoomsScreen";
+import LoginScreen from "./app/screens/LoginScreen";
 
 // Ignoring warnings.
 LogBox.ignoreLogs([
@@ -14,5 +15,5 @@ export default function App() {
     db();
   }, []);
 
-  return <ChatRoomsScreen />;
+  return <LoginScreen />;
 }

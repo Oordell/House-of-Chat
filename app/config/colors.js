@@ -1,5 +1,7 @@
 export default Object.freeze({
   black: "#000",
+  facebook: "#4267b2",
+  google: "#DB4437",
   notification: "#F44444",
   primary: "#6C98FF",
   secondary: "#FFD36C",
