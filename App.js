@@ -1,21 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from "react";
+import { LogBox } from "react-native";
+import db from "./app/config/db";
+import ChatRoomsScreen from "./app/screens/ChatRoomsScreen";
+
+// Ignoring warnings.
+LogBox.ignoreLogs([
+  // This is from Firebase and only on Android. Currently there is no fix.
+  "Setting a timer for a long period of time, i.e. multiple minutes",
+]);
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  useEffect(() => {
+    db();
+  }, []);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return <ChatRoomsScreen />;
+}
