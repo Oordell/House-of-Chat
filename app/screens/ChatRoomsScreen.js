@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import dbRooms from "../api/chatRooms";
 import ListItem from "../components/ListItem";
 import ListItemSeperator from "../components/ListItemSeperator";
+import AppButton from "../components/AppButton";
+import authStorage from "../auth/storage";
+import useAuth from "../auth/useAuth";
 
 function ChatRoomsScreen(props) {
+  const { logOut } = useAuth();
   const [rooms, setRooms] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -21,6 +25,11 @@ function ChatRoomsScreen(props) {
 
   const handleRoomPressed = () => {
     console.log("Room pressed.");
+  };
+
+  const handleSignOut = () => {
+    logOut();
+    authStorage.removeAuthToken();
   };
 
   return (
@@ -39,9 +48,24 @@ function ChatRoomsScreen(props) {
         ItemSeparatorComponent={ListItemSeperator}
         refreshing={refreshing}
         onRefresh={() => getChatRooms()}
+        ListFooterComponent={
+          <View style={styles.footerContainer}>
+            <AppButton
+              title="sign out"
+              onPress={handleSignOut}
+              color="notification"
+            />
+          </View>
+        }
       />
     </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  footerContainer: {
+    margin: 20,
+  },
+});
 
 export default ChatRoomsScreen;

@@ -23,10 +23,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.oordell.HouseOfChat"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
     }
-  }
+  },
+  "facebookScheme": "fb2744554949143350",
+  "facebookAppID": "2744554949143350",
+  "facebookDisplayName": "HouseOfChat"
 }
