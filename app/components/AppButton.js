@@ -3,6 +3,7 @@ import { StyleSheet, Pressable, View } from "react-native";
 import colors from "../config/colors";
 import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import defaultStyles from "../config/styles";
 
 function AppButton({ color = "primary", iconName, title, onPress }) {
   return (
@@ -13,6 +14,7 @@ function AppButton({ color = "primary", iconName, title, onPress }) {
           backgroundColor: iconName ? colors[iconName] : colors[color],
         },
         styles.button,
+        defaultStyles.shadows,
       ]}
       onPress={onPress}
     >

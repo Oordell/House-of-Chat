@@ -9,9 +9,10 @@ import AppButton from "../components/AppButton";
 import authStorage from "../auth/storage";
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/users";
+import UserImage from "../components/UserImage";
 
 function ChatRoomsScreen(props) {
-  const { logOut } = useAuth();
+  const { user, logOut } = useAuth();
   const [rooms, setRooms] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -41,7 +42,12 @@ function ChatRoomsScreen(props) {
         contentContainerStyle={{ flexGrow: 1 }}
         data={rooms}
         keyExtractor={(room) => room.id.toString()}
-        ListHeaderComponent={<AppText>List of chat rooms from db</AppText>}
+        ListHeaderComponent={
+          <View style={styles.userInfo}>
+            <UserImage imageUri={user.pictureUrl} />
+            <AppText style={styles.userName}>{user.fullName}</AppText>
+          </View>
+        }
         renderItem={({ item }) => (
           <ListItem
             title={item.data().name}
@@ -49,7 +55,6 @@ function ChatRoomsScreen(props) {
             onPress={handleRoomPressed}
           />
         )}
-        //ItemSeparatorComponent={ListItemSeperator}
         refreshing={refreshing}
         onRefresh={() => getChatRooms()}
         ListFooterComponent={
@@ -69,6 +74,15 @@ function ChatRoomsScreen(props) {
 const styles = StyleSheet.create({
   footerContainer: {
     margin: 15,
+  },
+  userInfo: {
+    marginTop: 10,
+    marginHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  userName: {
+    marginLeft: 10,
   },
 });
 

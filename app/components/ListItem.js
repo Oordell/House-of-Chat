@@ -3,6 +3,7 @@ import { View, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import AppText from "./AppText";
+import defaultStyles from "../config/styles";
 
 function ListItem({ title, subTitle, onPress }) {
   return (
@@ -10,6 +11,7 @@ function ListItem({ title, subTitle, onPress }) {
       style={({ pressed }) => [
         { opacity: pressed ? 0.7 : 1 },
         styles.container,
+        defaultStyles.shadows,
       ]}
       onPress={onPress}
     >
@@ -37,8 +39,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
+    marginHorizontal: 15,
+    marginTop: 20,
     padding: 15,
+    backgroundColor: colors.primary,
+    height: 100,
+    alignItems: "center",
+    borderRadius: 20,
   },
   description: {
     marginLeft: 10,
