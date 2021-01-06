@@ -67,6 +67,7 @@ const googleSignIn = async () => {
       });
 
       googleFirebaseSignIn(result);
+
       return createUserObject(result.user, LOGIN_METHODE.google);
     } else {
       logger.logMessage("User canceled sign in with Google.");
@@ -77,9 +78,55 @@ const googleSignIn = async () => {
   }
 };
 
-const googleFirebaseSignIn = (googleUser) => {};
+const googleFirebaseSignIn = (googleUser) => {
+  // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+  const unsubscribe = firebase
+    .auth()
+    .onAuthStateChanged(async (firebaseUser) => {
+      unsubscribe();
+      // Check if we are already signed-in Firebase with the correct user.
+      if (!isGoogleUserEqual(googleUser, firebaseUser)) {
+        // Build Firebase credential with the Google ID token.
+        const credential = firebase.auth.GoogleAuthProvider.credential(
+          googleUser.idToken,
+          googleUser.accessToken
+        );
 
-const isUserEqual = async (googleUser, firebaseUser) => {};
+        try {
+          // Sign in with credential from the Google user.
+          await firebase.auth().signInWithCredential(credential);
+
+          const userInfo = createUserObject(
+            googleUser.user,
+            LOGIN_METHODE.google
+          );
+          usersApi.storeOrUpdateUser(userInfo);
+        } catch (error) {
+          logger.logMessage("Error trying to sing in user with credentials.");
+          logger.logError(error);
+        }
+      } else {
+        logger.logMessage("User already signed-in Firebase.");
+      }
+    });
+};
+
+const isGoogleUserEqual = (googleUser, firebaseUser) => {
+  if (firebaseUser) {
+    const providerData = firebaseUser.providerData;
+    for (let i = 0; i < providerData.length; i++) {
+      if (
+        providerData[i].providerId ===
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+        providerData[i].uid === googleUser.user.id
+      ) {
+        // We don't need to reauth the Firebase connection.
+        return true;
+      }
+    }
+  }
+  return false;
+};
 
 const createUserObject = (userInfo, logInMethode) => {
   const commonAttributes = {

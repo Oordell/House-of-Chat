@@ -8,6 +8,7 @@ import ListItemSeperator from "../components/ListItemSeperator";
 import AppButton from "../components/AppButton";
 import authStorage from "../auth/storage";
 import useAuth from "../auth/useAuth";
+import usersApi from "../api/users";
 
 function ChatRoomsScreen(props) {
   const { logOut } = useAuth();
@@ -30,11 +31,14 @@ function ChatRoomsScreen(props) {
   const handleSignOut = () => {
     logOut();
     authStorage.removeAuthToken();
+    usersApi.signOutUser();
   };
 
   return (
     <Screen>
       <FlatList
+        ListFooterComponentStyle={{ flexGrow: 1, justifyContent: "flex-end" }}
+        contentContainerStyle={{ flexGrow: 1 }}
         data={rooms}
         keyExtractor={(room) => room.id.toString()}
         ListHeaderComponent={<AppText>List of chat rooms from db</AppText>}
@@ -45,7 +49,7 @@ function ChatRoomsScreen(props) {
             onPress={handleRoomPressed}
           />
         )}
-        ItemSeparatorComponent={ListItemSeperator}
+        //ItemSeparatorComponent={ListItemSeperator}
         refreshing={refreshing}
         onRefresh={() => getChatRooms()}
         ListFooterComponent={
@@ -64,7 +68,7 @@ function ChatRoomsScreen(props) {
 
 const styles = StyleSheet.create({
   footerContainer: {
-    margin: 20,
+    margin: 15,
   },
 });
 
