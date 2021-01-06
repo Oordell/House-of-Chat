@@ -5,7 +5,6 @@ import * as Facebook from "expo-facebook";
 import * as firebase from "firebase";
 import authStorage from "./storage";
 import usersApi from "../api/users";
-import apiEndpoints from "../api/endpoints";
 
 const LOGIN_METHODE = {
   facebook: "FACEBOOK",
@@ -36,10 +35,12 @@ const facebookSignIn = async () => {
       }
 
       const userInfo = await response.json();
-      return createUserObject(userInfo, LOGIN_METHODE.facebook);
+      const user = createUserObject(userInfo, LOGIN_METHODE.facebook);
+      facebookFirebaseSignIn({ ...user, token });
+
+      return user;
     } else {
       logger.logMessage("User canceled sign in with Gacebook.");
-      return setLoginFailed(true);
     }
   } catch (error) {
     logger.logMessage("Error trying to login with Facebook.");
@@ -48,7 +49,52 @@ const facebookSignIn = async () => {
   }
 };
 
-const facebookFirebaseSignIn = async () => {};
+const facebookFirebaseSignIn = async (facebookUser) => {
+  const unsubscribe = firebase
+    .auth()
+    .onAuthStateChanged(async (firebaseUser) => {
+      unsubscribe();
+      // Check if we are already signed-in Firebase with the correct user.
+      if (!isFacebookUserEqual(facebookUser, firebaseUser)) {
+        // Build Firebase credential with the Facebook auth token.
+        const credential = firebase.auth.FacebookAuthProvider.credential(
+          facebookUser.token
+        );
+
+        // Sign in with the credential from the Facebook user.
+        try {
+          await firebase.auth().signInWithCredential(credential);
+        } catch (error) {
+          logger.logMessage(
+            "Error trying to sign in user with Facebook and Firebase."
+          );
+          logger.logError(error);
+        }
+      } else {
+        // User is already signed-in Firebase with the correct user.
+        logger.logMessage(
+          "User is already signed in to Firebase with Facebook."
+        );
+      }
+    });
+};
+
+function isFacebookUserEqual(facebookAuthResponse, firebaseUser) {
+  if (firebaseUser) {
+    const providerData = firebaseUser.providerData;
+    for (let i = 0; i < providerData.length; i++) {
+      if (
+        providerData[i].providerId ===
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
+        providerData[i].uid === facebookAuthResponse.id
+      ) {
+        // We don't need to re-auth the Firebase connection.
+        return true;
+      }
+    }
+  }
+  return false;
+}
 
 const googleSignIn = async () => {
   const config = {
