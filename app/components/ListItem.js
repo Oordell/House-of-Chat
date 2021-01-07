@@ -4,8 +4,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import AppText from "./AppText";
 import defaultStyles from "../config/styles";
+import dayjs from "dayjs";
 
-function ListItem({ title, subTitle, onPress }) {
+function ListItem({ title, subTitle, lastUpdate, onPress }) {
+  const time = dayjs(lastUpdate).format("DD/MM-YYYY, HH:mm:ss");
+
   return (
     <Pressable
       style={({ pressed }) => [
@@ -20,6 +23,7 @@ function ListItem({ title, subTitle, onPress }) {
         <AppText numberOfLines={2} style={styles.subTitle}>
           {subTitle}
         </AppText>
+        <AppText numberOfLines={1}>Last update: {time}</AppText>
       </View>
       <View style={styles.chevron}>
         <MaterialCommunityIcons
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     backgroundColor: colors.primary,
-    height: 100,
+    height: 120,
     alignItems: "center",
     borderRadius: 20,
   },

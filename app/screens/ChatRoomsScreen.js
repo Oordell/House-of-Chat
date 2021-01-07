@@ -10,6 +10,7 @@ import useAuth from "../auth/useAuth";
 import usersApi from "../api/users";
 import UserImage from "../components/UserImage";
 import routs from "../navigation/routs";
+import chatRoomsApi from "../api/chatRooms";
 
 function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();
@@ -22,6 +23,7 @@ function ChatRoomsScreen({ navigation }) {
 
   const getChatRooms = async () => {
     const rooms = await dbRooms.getAllRooms();
+
     setRooms(rooms);
   };
 
@@ -31,28 +33,50 @@ function ChatRoomsScreen({ navigation }) {
     usersApi.signOutUser();
   };
 
+  const handleAddChatRoom = () => {
+    chatRoomsApi.createNewChatRoom(
+      "New Room",
+      "A description of the new room."
+    );
+  };
+
   return (
     <Screen>
       <FlatList
-        ListFooterComponentStyle={{ flexGrow: 1, justifyContent: "flex-end" }}
         contentContainerStyle={{ flexGrow: 1 }}
-        data={rooms}
+        data={
+          rooms
+            ? rooms.sort(
+                (a, b) =>
+                  b.data().latestUpdate.toDate().getTime() -
+                  a.data().latestUpdate.toDate().getTime()
+              )
+            : []
+        }
         keyExtractor={(room) => room.id.toString()}
         ListHeaderComponent={
           <View style={styles.userInfo}>
             <UserImage imageUri={user.pictureUrl} />
             <AppText style={styles.userName}>{user.fullName}</AppText>
+            <AppButton title="Add Chat Room" onPress={handleAddChatRoom} />
           </View>
         }
         renderItem={({ item }) => (
           <ListItem
             title={item.data().name}
             subTitle={item.data().description}
-            onPress={() => navigation.navigate(routs.CHAT, item.data())}
+            lastUpdate={item.data().latestUpdate.toDate().getTime()}
+            onPress={() =>
+              navigation.navigate(routs.CHAT, {
+                name: item.data().name,
+                id: item.id,
+              })
+            }
           />
         )}
         refreshing={refreshing}
         onRefresh={() => getChatRooms()}
+        ListFooterComponentStyle={{ flexGrow: 1, justifyContent: "flex-end" }}
         ListFooterComponent={
           <View style={styles.footerContainer}>
             <AppButton
@@ -76,9 +100,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   userName: {
-    marginLeft: 10,
+    marginHorizontal: 10,
   },
 });
 

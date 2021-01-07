@@ -34,7 +34,6 @@ function AppButton({ color = "primary", iconName, title, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    width: "100%",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",

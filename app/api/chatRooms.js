@@ -24,6 +24,36 @@ const getAllRooms = async () => {
   }
 };
 
+const updateChatRoomLatestChat = async (message, chatRoomId) => {
+  try {
+    await db.doc(chatRoomId).update({
+      latestUpdate: firebase.firestore.Timestamp.now(),
+      latestMessage: message,
+    });
+  } catch (error) {
+    logger.logMessage(
+      `Error trying to update the latest message to room ${chatRoomId}`
+    );
+    logger.logError(error);
+  }
+};
+
+const createNewChatRoom = async (name, description) => {
+  try {
+    await db.add({
+      name,
+      description,
+      latestUpdate: firebase.firestore.Timestamp.now(),
+      latestMessage: {},
+    });
+  } catch (error) {
+    logger.logMessage(`Error trying to post a new Chat Room to Firebase.`);
+    logger.logError(error);
+  }
+};
+
 export default {
+  createNewChatRoom,
   getAllRooms,
+  updateChatRoomLatestChat,
 };
