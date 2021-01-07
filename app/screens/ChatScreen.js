@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import useAuth from "../auth/useAuth";
 import messageApi from "../api/messages";
+import Screen from "../components/Screen";
 
 function ChatScreen({ route }) {
   const { user } = useAuth();
@@ -39,12 +40,15 @@ function ChatScreen({ route }) {
   };
 
   return (
-    <GiftedChat
-      user={chatUser}
-      messages={messages}
-      alwaysShowSend
-      onSend={handleSendMessage}
-    />
+    <Screen>
+      <GiftedChat
+        user={chatUser}
+        messages={messages}
+        alwaysShowSend
+        renderUsernameOnMessage
+        onSend={handleSendMessage}
+      />
+    </Screen>
   );
 }
 
