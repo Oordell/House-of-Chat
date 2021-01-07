@@ -58,7 +58,7 @@ function ChatRoomsScreen({ navigation }) {
           <View style={styles.userInfo}>
             <UserImage imageUri={user.pictureUrl} />
             <AppText style={styles.userName}>{user.fullName}</AppText>
-            <AppButton title="Add Chat Room" onPress={handleAddChatRoom} />
+            {/* <AppButton title="Add Chat Room" onPress={handleAddChatRoom} /> */}
           </View>
         }
         renderItem={({ item }) => (

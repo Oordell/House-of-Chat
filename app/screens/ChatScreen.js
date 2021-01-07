@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import useAuth from "../auth/useAuth";
 import messageApi from "../api/messages";
-import Screen from "../components/Screen";
+import { View } from "react-native";
+import ChatHeader from "../components/ChatHeader";
+import routs from "../navigation/routs";
 
-function ChatScreen({ route }) {
+function ChatScreen({ route, navigation }) {
   const { user } = useAuth();
   const chatRoom = route.params;
   const [messages, setMessages] = useState([]);
@@ -18,7 +20,6 @@ function ChatScreen({ route }) {
       name: user.fullName,
       avatar: user.pictureUrl,
     });
-    console.log("User object: ", chatUser);
     const unsubscribe = messageApi.getLast50MessagesInRoom(
       chatRoom.id,
       appendMessages
@@ -39,8 +40,14 @@ function ChatScreen({ route }) {
     messageApi.addMessage(message, chatRoom.id);
   };
 
+  const handelBackButtonPressed = () => {};
+
   return (
-    <Screen>
+    <View style={{ flex: 1 }}>
+      <ChatHeader
+        headerTitle={chatRoom.name}
+        onPressBack={() => navigation.navigate(routs.CHATROOMS)}
+      />
       <GiftedChat
         user={chatUser}
         messages={messages}
@@ -48,7 +55,7 @@ function ChatScreen({ route }) {
         renderUsernameOnMessage
         onSend={handleSendMessage}
       />
-    </Screen>
+    </View>
   );
 }
 
