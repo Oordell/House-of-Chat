@@ -10,6 +10,7 @@ export default Object.freeze({
   shadow: "#0c0c0c",
   text: "#0c0c0c",
   text_light: "#4f4f4f",
+  text_veryLight: "#f8f4f4",
   seperator: "#f8f4f4",
   white: "#fff",
 });

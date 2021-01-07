@@ -29,7 +29,7 @@ const getLast50MessagesInRoom = (roomId, appendMessageCallback) => {
 
 const addMessage = async (message, roomId) => {
   try {
-    const msg = { ...message[0], chatRoomId: roomId };
+    const msg = { ...message, chatRoomId: roomId };
     await db.add(msg);
 
     await chatRoomApi.updateChatRoomLatestChat(msg, roomId);

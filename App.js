@@ -13,6 +13,9 @@ import navigationTheme from "./app/navigation/navigationTheme";
 LogBox.ignoreLogs([
   // This is from Firebase and only effects Android. Currently there is no fix.
   "Setting a timer for a long period of time, i.e. multiple minutes",
+  // This is from Gifted Chats impimentation. So far it seams it can be ignored.
+  "Animated.event now requires a second argument for options",
+  "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
 ]);
 
 export default function App() {
