@@ -3,9 +3,11 @@ import { LogBox } from "react-native";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import db from "./app/config/db";
-import ChatRoomsScreen from "./app/screens/ChatRoomsScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import AppLoading from "expo-app-loading";
+import { NavigationContainer } from "@react-navigation/native";
+import ChatNavigator from "./app/navigation/ChatNavigator";
+import navigationTheme from "./app/navigation/navigationTheme";
 
 // Ignoring warnings.
 LogBox.ignoreLogs([
@@ -37,7 +39,9 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {user ? <ChatRoomsScreen /> : <LoginScreen />}
+      <NavigationContainer theme={navigationTheme}>
+        {user ? <ChatNavigator /> : <LoginScreen />}
+      </NavigationContainer>
     </AuthContext.Provider>
   );
 }

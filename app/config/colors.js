@@ -1,4 +1,5 @@
 export default Object.freeze({
+  background: "#fff",
   black: "#000",
   card: "#8DE4FF",
   facebook: "#4267b2",

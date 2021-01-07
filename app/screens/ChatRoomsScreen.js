@@ -4,14 +4,14 @@ import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import dbRooms from "../api/chatRooms";
 import ListItem from "../components/ListItem";
-import ListItemSeperator from "../components/ListItemSeperator";
 import AppButton from "../components/AppButton";
 import authStorage from "../auth/storage";
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/users";
 import UserImage from "../components/UserImage";
+import routs from "../navigation/routs";
 
-function ChatRoomsScreen(props) {
+function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();
   const [rooms, setRooms] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -23,10 +23,6 @@ function ChatRoomsScreen(props) {
   const getChatRooms = async () => {
     const rooms = await dbRooms.getAllRooms();
     setRooms(rooms);
-  };
-
-  const handleRoomPressed = () => {
-    console.log("Room pressed.");
   };
 
   const handleSignOut = () => {
@@ -52,7 +48,7 @@ function ChatRoomsScreen(props) {
           <ListItem
             title={item.data().name}
             subTitle={item.data().description}
-            onPress={handleRoomPressed}
+            onPress={() => navigation.navigate(routs.CHAT, item.data())}
           />
         )}
         refreshing={refreshing}
