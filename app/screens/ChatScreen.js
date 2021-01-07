@@ -7,10 +7,17 @@ function ChatScreen({ route }) {
   const { user } = useAuth();
   const chatRoom = route.params;
   const [messages, setMessages] = useState([]);
+  const [chatUser, setChatUser] = useState({});
 
   useEffect(() => {
     // Reset state to avoid errors on reloads:
     setMessages([]);
+    setChatUser({
+      _id: user._id,
+      name: user.fullName,
+      avatar: user.pictureUrl,
+    });
+    console.log("User object: ", chatUser);
     const unsubscribe = messageApi.getLast50MessagesInRoom(
       chatRoom.id,
       appendMessages
@@ -33,7 +40,7 @@ function ChatScreen({ route }) {
 
   return (
     <GiftedChat
-      user={user}
+      user={chatUser}
       messages={messages}
       alwaysShowSend
       onSend={handleSendMessage}
