@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
     margin: 10,
+    backgroundColor: colors.primary,
   },
   chevron: {
     justifyContent: "center",

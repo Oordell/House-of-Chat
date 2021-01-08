@@ -138,8 +138,6 @@ function ChatScreen({ route, navigation }) {
   };
 
   const handleOnSendPressed = (text, onSend) => {
-    console.log("text: ", text);
-    console.log("onSend: ", onSend);
     if (onSend && (text || localImageUri)) {
       onSend({ text: text.trim() }, true);
     }
@@ -148,6 +146,26 @@ function ChatScreen({ route, navigation }) {
   const handleSelectedImagePressed = () => {
     setLocalImageUri(null);
     setImageIsSelected(false);
+  };
+
+  const handleLoadEarlierMessages = async () => {
+    setImageIsBeingUploaded(true);
+    const { createdAt: oldestMessageDate } = messages[messages.length - 1];
+    const oldMessages = await messageApi.get50AdditionalMessagesInRoom(
+      chatRoom.id,
+      oldestMessageDate
+    );
+
+    if (oldMessages === null) {
+      // Error
+    } else if (oldMessages.length === 0) {
+      // No new messages
+    } else {
+      setMessages((currentMessages) =>
+        GiftedChat.append(oldMessages, currentMessages)
+      );
+    }
+    setImageIsBeingUploaded(false);
   };
 
   return (
@@ -163,6 +181,14 @@ function ChatScreen({ route, navigation }) {
         user={chatUser}
         messages={messages}
         renderUsernameOnMessage
+        infiniteScroll
+        scrollToBottom
+        listViewProps={{
+          onEndReachedThreshold: 0.5,
+        }}
+        textInputStyle={styles.textInput}
+        loadEarlier
+        onLoadEarlier={handleLoadEarlierMessages}
         alwaysShowSend
         renderChatEmpty={() => (
           <View style={styles.emptyChat}>
@@ -200,6 +226,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     transform: [{ rotateX: "180deg" }],
+  },
+  textInput: {
+    backgroundColor: colors.text_veryLight,
+    borderRadius: 15,
+    padding: 10,
   },
 });
 

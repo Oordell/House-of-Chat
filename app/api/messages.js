@@ -27,6 +27,30 @@ const getLast50MessagesInRoom = (roomId, appendMessageCallback) => {
     });
 };
 
+const get50AdditionalMessagesInRoom = async (roomId, oldestMessageDate) => {
+  let messages = [];
+  try {
+    const res = await db
+      .where("chatRoomId", "==", roomId)
+      .where("createdAt", "<", oldestMessageDate)
+      .orderBy("createdAt", "desc")
+      .limit(50)
+      .get();
+
+    if (!res) return null;
+
+    res.forEach((doc) => {
+      const message = doc.data();
+      messages.push({ ...message, createdAt: message.createdAt.toDate() });
+    });
+
+    return messages;
+  } catch (error) {
+    logger.logMessage("Error loading 50 additional messages from Firebase.");
+    logger.logError(error);
+  }
+};
+
 const addMessage = async (message, roomId) => {
   try {
     const msg = { ...message, chatRoomId: roomId };
@@ -42,4 +66,5 @@ const addMessage = async (message, roomId) => {
 export default {
   addMessage,
   getLast50MessagesInRoom,
+  get50AdditionalMessagesInRoom,
 };
