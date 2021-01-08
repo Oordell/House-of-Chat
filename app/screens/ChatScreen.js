@@ -1,8 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, Send } from "react-native-gifted-chat";
 import useAuth from "../auth/useAuth";
 import messageApi from "../api/messages";
-import { Alert, Image, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import ChatHeader from "../components/ChatHeader";
 import routs from "../navigation/routs";
 import AppText from "../components/AppText";
@@ -10,14 +16,16 @@ import ChatImageAndCameraButton from "../components/ChatImageAndCameraButton";
 import * as ImagePicker from "expo-image-picker";
 import logger from "../utility/logger";
 import storageApi from "../api/storage";
+import colors from "../config/colors";
 
 function ChatScreen({ route, navigation }) {
   const { user } = useAuth();
   const chatRoom = route.params;
   const [messages, setMessages] = useState([]);
   const [chatUser, setChatUser] = useState({});
-  const [imageUri, setImageUri] = useState(null);
+  const [localImageUri, setLocalImageUri] = useState(null);
   const [imageIsSelected, setImageIsSelected] = useState(false);
+  const [imageIsBeingUploaded, setImageIsBeingUploaded] = useState(false);
 
   useEffect(() => {
     // Reset state to avoid errors on reloads:
@@ -75,32 +83,43 @@ function ChatScreen({ route, navigation }) {
     }
   };
 
-  const sendMessageWithImage = (imageRef) => {};
-
   const handleSendMessage = async (message) => {
-    const msg = imageUri
-      ? { ...message[0], image: imageUri }
-      : { ...message[0] };
+    let msg;
+    if (localImageUri) {
+      setImageIsBeingUploaded(true);
+      // TODO: Add activity indicator while uploading.
+      const imageDownloadRef = await storageApi.uploadImageFromMediaLibrary(
+        localImageUri
+      );
+      msg = { ...message[0], image: imageDownloadRef };
+    } else {
+      msg = { ...message[0] };
+    }
     await messageApi.addMessage(msg, chatRoom.id);
-    setImageUri(null);
+    setImageIsBeingUploaded(false);
+    setLocalImageUri(null);
     setImageIsSelected(false);
   };
 
   const handleImageIconPressed = async () => {
-    setImageUri(null);
-    await requestMediaLibraryPermission();
-    const imageWasSelected = await pickImageFromLibrary();
+    setLocalImageUri(null);
     setImageIsSelected(true);
-    if (imageWasSelected) {
-      const imageDownloadRef = await storageApi.uploadImageFromMediaLibrary(
-        imageWasSelected
-      );
-      setImageUri(imageDownloadRef);
+    await requestMediaLibraryPermission();
+    const selectedLocalImageUri = await pickImageFromLibrary();
+    if (selectedLocalImageUri) {
+      setLocalImageUri(selectedLocalImageUri);
+      setImageIsSelected(false);
     }
   };
 
   const handleCameraIconPressed = () => {
     console.log("Camera pressed");
+  };
+
+  const handleOnSendPressed = (text, onSend) => {
+    if (onSend) {
+      onSend({ text: text.trim() }, true);
+    }
   };
 
   return (
@@ -109,6 +128,9 @@ function ChatScreen({ route, navigation }) {
         headerTitle={chatRoom.name}
         onPressBack={() => navigation.navigate(routs.CHATROOMS)}
       />
+      {imageIsBeingUploaded && (
+        <ActivityIndicator color={colors.text_light} size="large" />
+      )}
       <GiftedChat
         user={chatUser}
         messages={messages}
@@ -120,12 +142,22 @@ function ChatScreen({ route, navigation }) {
           </View>
         )}
         onSend={(msg) => handleSendMessage(msg)}
+        renderSend={({ onSend, text, sendButtonProps, ...props }) => (
+          <Send
+            {...props}
+            sendButtonProps={{
+              ...sendButtonProps,
+              onPress: () => handleOnSendPressed(text, onSend),
+            }}
+          />
+        )}
+        alwaysShowSend={true}
         renderActions={() => (
           <ChatImageAndCameraButton
             onCameraPress={handleCameraIconPressed}
             onImagePress={handleImageIconPressed}
             imageIsSelected={imageIsSelected}
-            imageDownloadUri={imageUri}
+            imageDownloadUri={localImageUri}
           />
         )}
       />
