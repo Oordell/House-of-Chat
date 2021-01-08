@@ -85,7 +85,7 @@ function ChatRoomsScreen({ navigation }) {
             <AppButton
               title="sign out"
               onPress={handleSignOut}
-              color="notification"
+              color="delete"
             />
           </View>
         }

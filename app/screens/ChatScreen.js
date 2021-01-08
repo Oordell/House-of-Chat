@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { GiftedChat, Send } from "react-native-gifted-chat";
-import useAuth from "../auth/useAuth";
-import messageApi from "../api/messages";
 import { Alert, StyleSheet, View, ActivityIndicator } from "react-native";
-import ChatHeader from "../components/ChatHeader";
-import routs from "../navigation/routs";
-import AppText from "../components/AppText";
-import ChatImageAndCameraButton from "../components/ChatImageAndCameraButton";
+import { GiftedChat, Send } from "react-native-gifted-chat";
 import * as ImagePicker from "expo-image-picker";
-import logger from "../utility/logger";
-import storageApi from "../api/storage";
-import colors from "../config/colors";
 import { Camera } from "expo-camera";
+
+import AppText from "../components/AppText";
 import cache from "../utility/cache";
-import ActivityIndicatorOverlay from "../components/ActivityIndicatorOverlay";
+import ChatImageAndCameraButton from "../components/ChatImageAndCameraButton";
+import ChatHeader from "../components/ChatHeader";
+import colors from "../config/colors";
+import logger from "../utility/logger";
+import messageApi from "../api/messages";
+import routs from "../navigation/routs";
+import storageApi from "../api/storage";
+import useAuth from "../auth/useAuth";
 
 function ChatScreen({ route, navigation }) {
   const { user } = useAuth();

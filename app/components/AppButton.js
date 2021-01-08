@@ -4,46 +4,68 @@ import colors from "../config/colors";
 import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
+import { LinearGradient } from "expo-linear-gradient";
 
 function AppButton({ color = "primary", iconName, title, onPress }) {
+  const colorsGradiant = [
+    colors[color + "_dark"],
+    colors[color],
+    colors[color + "_light"],
+  ];
+
   return (
-    <Pressable
-      style={({ pressed }) => [
-        {
-          opacity: pressed ? 0.7 : 1,
-          backgroundColor: iconName ? colors[iconName] : colors[color],
-        },
-        styles.button,
-        defaultStyles.shadows,
-      ]}
-      onPress={onPress}
-    >
-      <View style={styles.icon}>
-        {iconName && (
-          <MaterialCommunityIcons
-            name={iconName}
-            color={colors.white}
-            size={30}
-          />
-        )}
-      </View>
-      <AppText style={styles.title}>{title}</AppText>
-    </Pressable>
+    <View style={[styles.constainer, defaultStyles.shadows]}>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            opacity: pressed ? 0.7 : 1,
+            backgroundColor: iconName ? colors[iconName] : colors[color],
+          },
+          styles.button,
+        ]}
+        onPress={onPress}
+      >
+        <LinearGradient
+          colors={colorsGradiant}
+          style={styles.gradient}
+          start={{ x: 0.0, y: 0.0 }}
+          end={{ x: 1.0, y: 0.0 }}
+        >
+          <View style={styles.icon}>
+            {iconName && (
+              <MaterialCommunityIcons
+                name={iconName}
+                color={colors.white}
+                size={30}
+              />
+            )}
+          </View>
+          <AppText style={styles.title}>{title}</AppText>
+        </LinearGradient>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    borderRadius: 100,
+    width: "100%",
+  },
   button: {
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 15,
+    overflow: "hidden",
+    borderRadius: 100,
     marginVertical: 10,
-    flexDirection: "row",
   },
   icon: {
     position: "absolute",
     left: 15,
+  },
+  gradient: {
+    padding: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   title: {
     fontSize: 18,

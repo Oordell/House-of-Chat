@@ -52,11 +52,13 @@ function LoginScreen(props) {
         <AppButton
           title="Sign in with Facebook"
           iconName="facebook"
+          color="facebook"
           onPress={handleFacebookLogin}
         />
         <AppButton
           title="Sign in with Google"
           iconName="google"
+          color="google"
           onPress={handleGoogleLogin}
         />
       </View>
