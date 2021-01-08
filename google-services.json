@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1086866507019",
+    "project_id": "newhouseofchat",
+    "storage_bucket": "newhouseofchat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086866507019:android:060999646416c024044e0e",
+        "android_client_info": {
+          "package_name": "com.oordell.HouseOfChat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086866507019-8v7bqipl9heoc4n2g6bf25ldjuvq8kc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9SzA2gkXX1YgwbyWppwALT-Ky-NL4hfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086866507019-8v7bqipl9heoc4n2g6bf25ldjuvq8kc2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1086866507019-et25aeisfvk2jlg07cq8c41fg4ddcbi6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

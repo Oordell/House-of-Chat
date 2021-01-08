@@ -11,20 +11,23 @@ import usersApi from "../api/users";
 import UserImage from "../components/UserImage";
 import routs from "../navigation/routs";
 import chatRoomsApi from "../api/chatRooms";
+import ActivityIndicatorOverlay from "../components/ActivityIndicatorOverlay";
 
 function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();
   const [rooms, setRooms] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [loadingUpdates, setLoadingUpdates] = useState(false);
 
   useEffect(() => {
     getChatRooms();
   }, []);
 
   const getChatRooms = async () => {
+    setLoadingUpdates(true);
     const rooms = await dbRooms.getAllRooms();
-
     setRooms(rooms);
+    setLoadingUpdates(false);
   };
 
   const handleSignOut = () => {
@@ -87,6 +90,7 @@ function ChatRoomsScreen({ navigation }) {
           </View>
         }
       />
+      <ActivityIndicatorOverlay visible={loadingUpdates} />
     </Screen>
   );
 }

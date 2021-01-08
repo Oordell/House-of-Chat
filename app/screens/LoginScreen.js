@@ -5,27 +5,38 @@ import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import useAuth from "../auth/useAuth";
 import signInWithSoMe from "../auth/signInWithSoMe";
+import ActivityIndicatorOverlay from "../components/ActivityIndicatorOverlay";
+import ErrorOverlay from "../components/ErrorOverlay";
 
 function LoginScreen(props) {
   const { logIn } = useAuth();
-  const [loginFailed, setLoginFailed] = useState(false);
+  const [signInFailed, setSignInFailed] = useState(false);
+  const [signInPressed, setSignInPressed] = useState(false);
 
   const handleFacebookLogin = async () => {
+    setSignInPressed(true);
     const user = await signInWithSoMe.facebookSignIn();
-    if (!user) setLoginFailed(true);
+    setSignInPressed(false);
+    if (!user) setSignInFailed(true);
     else {
-      setLoginFailed(true);
+      setSignInFailed(false);
       logIn(user);
     }
   };
 
   const handleGoogleLogin = async () => {
+    setSignInPressed(true);
     const user = await signInWithSoMe.googleSignIn();
-    if (!user) setLoginFailed(true);
+    setSignInPressed(false);
+    if (!user) setSignInFailed(true);
     else {
-      setLoginFailed(true);
+      setSignInFailed(false);
       logIn(user);
     }
+  };
+
+  const toggleOverlayVisible = () => {
+    setSignInFailed(!signInFailed);
   };
 
   return (
@@ -49,6 +60,11 @@ function LoginScreen(props) {
           onPress={handleGoogleLogin}
         />
       </View>
+      <ActivityIndicatorOverlay visible={signInPressed} />
+      <ErrorOverlay
+        visible={signInFailed}
+        toggleOverlay={toggleOverlayVisible}
+      />
     </Screen>
   );
 }

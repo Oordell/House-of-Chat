@@ -10,5 +10,8 @@ export default () => {
     appId: "1:1086866507019:web:c30e3ef73e3a0794044e0e",
   };
 
-  if (firebase.apps.length === 0) firebase.initializeApp(firebaseConfig);
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+    //firebase.analytics();
+  }
 };

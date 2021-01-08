@@ -38,7 +38,7 @@ const facebookSignIn = async () => {
       const user = createUserObject(userInfo, LOGIN_METHODE.facebook);
       facebookFirebaseSignIn({ ...user, token });
 
-      return user;
+      return null; // user;
     } else {
       logger.logMessage("User canceled sign in with Gacebook.");
     }

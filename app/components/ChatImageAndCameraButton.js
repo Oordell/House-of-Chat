@@ -64,10 +64,6 @@ function ChatImageAndCameraButton({
               />
             </View>
           </ImageBackground>
-          {/* <Image
-            style={styles.selectedImage}
-            source={{ uri: selectedimageUri }}
-          /> */}
         </Pressable>
       ) : (
         imageIsBeingSelected && (

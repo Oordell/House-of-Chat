@@ -13,6 +13,7 @@ import storageApi from "../api/storage";
 import colors from "../config/colors";
 import { Camera } from "expo-camera";
 import cache from "../utility/cache";
+import ActivityIndicatorOverlay from "../components/ActivityIndicatorOverlay";
 
 function ChatScreen({ route, navigation }) {
   const { user } = useAuth();
@@ -137,7 +138,9 @@ function ChatScreen({ route, navigation }) {
   };
 
   const handleOnSendPressed = (text, onSend) => {
-    if (onSend && localImageUri) {
+    console.log("text: ", text);
+    console.log("onSend: ", onSend);
+    if (onSend && (text || localImageUri)) {
       onSend({ text: text.trim() }, true);
     }
   };
