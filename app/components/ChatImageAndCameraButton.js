@@ -5,15 +5,18 @@ import {
   StyleSheet,
   Pressable,
   Image,
+  ImageBackground,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
+import AppButtonTiny from "./AppButtonTiny";
 
 function ChatImageAndCameraButton({
   onImagePress,
   onCameraPress,
-  imageIsSelected = false,
-  imageDownloadUri = false,
+  imageIsBeingSelected = false,
+  selectedimageUri = false,
+  onSelectedImagePressed,
 }) {
   return (
     <View style={styles.container}>
@@ -47,13 +50,27 @@ function ChatImageAndCameraButton({
           color={colors.text_light}
         />
       </Pressable>
-      {imageDownloadUri ? (
-        <Image
-          style={styles.selectedImage}
-          source={{ uri: imageDownloadUri }}
-        />
+      {selectedimageUri ? (
+        <Pressable onPress={onSelectedImagePressed}>
+          <ImageBackground
+            style={styles.selectedImage}
+            source={{ uri: selectedimageUri }}
+          >
+            <View style={styles.tinyDeleteLogo}>
+              <AppButtonTiny
+                iconName="close-circle"
+                iconColor="delete"
+                color="black"
+              />
+            </View>
+          </ImageBackground>
+          {/* <Image
+            style={styles.selectedImage}
+            source={{ uri: selectedimageUri }}
+          /> */}
+        </Pressable>
       ) : (
-        imageIsSelected && (
+        imageIsBeingSelected && (
           <View style={styles.logos}>
             <ActivityIndicator size="small" color={colors.text_light} />
           </View>
@@ -73,6 +90,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   selectedImage: {
+    overflow: "hidden",
     width: 40,
     height: 30,
     resizeMode: "cover",
@@ -80,6 +98,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.text_light,
     borderRadius: 5,
+  },
+  tinyDeleteLogo: {
+    position: "absolute",
+    right: 0,
   },
 });
 

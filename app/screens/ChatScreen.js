@@ -142,6 +142,11 @@ function ChatScreen({ route, navigation }) {
     }
   };
 
+  const handleSelectedImagePressed = () => {
+    setLocalImageUri(null);
+    setImageIsSelected(false);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ChatHeader
@@ -176,8 +181,9 @@ function ChatScreen({ route, navigation }) {
           <ChatImageAndCameraButton
             onCameraPress={handleCameraIconPressed}
             onImagePress={handleImageIconPressed}
-            imageIsSelected={imageIsSelected}
-            imageDownloadUri={localImageUri}
+            imageIsBeingSelected={imageIsSelected}
+            selectedimageUri={localImageUri}
+            onSelectedImagePressed={handleSelectedImagePressed}
           />
         )}
       />
