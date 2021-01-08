@@ -2,12 +2,12 @@ import * as firebase from "firebase";
 
 export default () => {
   const firebaseConfig = {
-    apiKey: "AIzaSyBFPozGYSZ8CCqOrTplPDp_R7LdF3YbmWw",
-    authDomain: "houseofchat-dec94.firebaseapp.com",
-    projectId: "houseofchat-dec94",
-    storageBucket: "houseofchat-dec94.appspot.com",
-    messagingSenderId: "484111970657",
-    appId: "1:484111970657:web:0edc51b5c8f62e85279520",
+    apiKey: "AIzaSyC6reMVaa1ojogZ4djruaAJcnT190EWswU",
+    authDomain: "newhouseofchat.firebaseapp.com",
+    projectId: "newhouseofchat",
+    storageBucket: "newhouseofchat.appspot.com",
+    messagingSenderId: "1086866507019",
+    appId: "1:1086866507019:web:c30e3ef73e3a0794044e0e",
   };
 
   if (firebase.apps.length === 0) firebase.initializeApp(firebaseConfig);

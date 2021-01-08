@@ -3,18 +3,18 @@ import Constants from "expo-constants";
 const settings = {
   dev: {
     facebookAppId: "2744554949143350",
-    androidClientId: `484111970657-amubi6i9sk0r6m68e7qk6r7an494550b.apps.googleusercontent.com`,
-    iosClientId: `484111970657-040ubgnakqglmt3a1gk5vauqvvg22onq.apps.googleusercontent.com`,
+    androidClientId: `1086866507019-6rq8fhvl5crkq0lhjtu0htq9seor0ahp.apps.googleusercontent.com`,
+    iosClientId: `1086866507019-et25aeisfvk2jlg07cq8c41fg4ddcbi6.apps.googleusercontent.com`,
   },
   staging: {
     facebookAppId: "2744554949143350",
-    androidClientId: `484111970657-amubi6i9sk0r6m68e7qk6r7an494550b.apps.googleusercontent.com`,
-    iosClientId: `484111970657-040ubgnakqglmt3a1gk5vauqvvg22onq.apps.googleusercontent.com`,
+    androidClientId: `1086866507019-6rq8fhvl5crkq0lhjtu0htq9seor0ahp.apps.googleusercontent.com`,
+    iosClientId: `1086866507019-et25aeisfvk2jlg07cq8c41fg4ddcbi6.apps.googleusercontent.com`,
   },
   prod: {
     facebookAppId: "2744554949143350",
-    androidClientId: `484111970657-amubi6i9sk0r6m68e7qk6r7an494550b.apps.googleusercontent.com`,
-    iosClientId: `484111970657-040ubgnakqglmt3a1gk5vauqvvg22onq.apps.googleusercontent.com`,
+    androidClientId: `1086866507019-6rq8fhvl5crkq0lhjtu0htq9seor0ahp.apps.googleusercontent.com`,
+    iosClientId: `1086866507019-et25aeisfvk2jlg07cq8c41fg4ddcbi6.apps.googleusercontent.com`,
   },
 };
 

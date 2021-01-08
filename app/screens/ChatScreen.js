@@ -2,13 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import useAuth from "../auth/useAuth";
 import messageApi from "../api/messages";
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { Alert, StyleSheet, View, ActivityIndicator } from "react-native";
 import ChatHeader from "../components/ChatHeader";
 import routs from "../navigation/routs";
 import AppText from "../components/AppText";
@@ -17,6 +11,8 @@ import * as ImagePicker from "expo-image-picker";
 import logger from "../utility/logger";
 import storageApi from "../api/storage";
 import colors from "../config/colors";
+import { Camera } from "expo-camera";
+import cache from "../utility/cache";
 
 function ChatScreen({ route, navigation }) {
   const { user } = useAuth();
@@ -29,6 +25,7 @@ function ChatScreen({ route, navigation }) {
 
   useEffect(() => {
     // Reset state to avoid errors on reloads:
+    setLocalImageUri(null);
     setMessages([]);
     setChatUser({
       _id: user._id,
@@ -39,8 +36,18 @@ function ChatScreen({ route, navigation }) {
       chatRoom.id,
       appendMessages
     );
-    return () => unsubscribe();
-  }, []);
+    const isFocused = navigation.addListener("focus", async () => {
+      const capturedImageUri = await cache.get("capturedImage");
+      if (capturedImageUri) {
+        setLocalImageUri(capturedImageUri);
+        cache.deleteItem("capturedImage");
+      }
+    });
+    return () => {
+      unsubscribe();
+      isFocused();
+    };
+  }, [navigation]);
 
   const appendMessages = useCallback(
     (messages) => {
@@ -68,6 +75,16 @@ function ChatScreen({ route, navigation }) {
     }
   };
 
+  const requestCameraPermissions = async () => {
+    try {
+      const { status } = await Camera.requestPermissionsAsync();
+      return status === "granted";
+    } catch (error) {
+      logger.logMessage("Error while trying to get permission for the Camera.");
+      logger.logError(error);
+    }
+  };
+
   const pickImageFromLibrary = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -87,7 +104,6 @@ function ChatScreen({ route, navigation }) {
     let msg;
     if (localImageUri) {
       setImageIsBeingUploaded(true);
-      // TODO: Add activity indicator while uploading.
       const imageDownloadRef = await storageApi.uploadImageFromMediaLibrary(
         localImageUri
       );
@@ -112,12 +128,16 @@ function ChatScreen({ route, navigation }) {
     }
   };
 
-  const handleCameraIconPressed = () => {
-    console.log("Camera pressed");
+  const handleCameraIconPressed = async () => {
+    const permission = await requestCameraPermissions();
+    if (!permission) {
+      return Alert.alert("You need to enable permission to acces the camera.");
+    }
+    navigation.navigate(routs.CAMERA);
   };
 
   const handleOnSendPressed = (text, onSend) => {
-    if (onSend) {
+    if (onSend && localImageUri) {
       onSend({ text: text.trim() }, true);
     }
   };
@@ -126,7 +146,7 @@ function ChatScreen({ route, navigation }) {
     <View style={{ flex: 1 }}>
       <ChatHeader
         headerTitle={chatRoom.name}
-        onPressBack={() => navigation.navigate(routs.CHATROOMS)}
+        onPressBack={() => navigation.goBack()}
       />
       {imageIsBeingUploaded && (
         <ActivityIndicator color={colors.text_light} size="large" />

@@ -13,4 +13,6 @@ export default Object.freeze({
   text_veryLight: "#f8f4f4",
   seperator: "#f8f4f4",
   white: "#fff",
+  delete: "#F44444",
+  save: "#5bf444",
 });
