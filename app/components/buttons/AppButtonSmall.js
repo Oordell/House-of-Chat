@@ -1,9 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import colors from "../config/colors";
+import colors from "../../config/colors";
+import defaultStyles from "../../config/styles";
 
-function AppButtonTiny({
+function AppButtonSmall({
   color = "primary",
   iconName,
   iconColor = "black",
@@ -11,7 +12,14 @@ function AppButtonTiny({
 }) {
   return (
     <Pressable
-      style={[{ backgroundColor: colors[color] }, styles.button]}
+      style={({ pressed }) => [
+        {
+          opacity: pressed ? 0.7 : 1,
+          backgroundColor: colors[color],
+        },
+        styles.button,
+        defaultStyles.shadows,
+      ]}
       onPress={onPress}
     >
       <View style={styles.icon}>
@@ -19,7 +27,7 @@ function AppButtonTiny({
           <MaterialCommunityIcons
             name={iconName}
             color={colors[iconColor]}
-            size={17}
+            size={30}
           />
         )}
       </View>
@@ -29,10 +37,12 @@ function AppButtonTiny({
 
 const styles = StyleSheet.create({
   button: {
+    borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    padding: 10,
   },
+  icon: {},
 });
 
-export default AppButtonTiny;
+export default AppButtonSmall;

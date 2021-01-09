@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { StyleSheet } from "react-native";
 import { Overlay } from "react-native-elements";
 import colors from "../../config/colors";
-import AppButton from "../AppButton";
+import AppButton from "../buttons/AppButton";
 import AppText from "../AppText";
 
 function NotificationsOverlay({ visible, onYesPressed, onNoPressed }) {

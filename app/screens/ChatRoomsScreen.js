@@ -4,7 +4,7 @@ import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import dbRooms from "../api/chatRooms";
 import ListItem from "../components/ListItem";
-import AppButton from "../components/AppButton";
+import AppButton from "../components/buttons/AppButton";
 import authStorage from "../auth/storage";
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/users";
@@ -12,7 +12,7 @@ import UserImage from "../components/UserImage";
 import routs from "../navigation/routs";
 import chatRoomsApi from "../api/chatRooms";
 import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
-import AppButtonSmall from "../components/AppButtonSmall";
+import AppButtonSmall from "../components/buttons/AppButtonSmall";
 
 function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();

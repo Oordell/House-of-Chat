@@ -1,7 +1,7 @@
 import { Camera } from "expo-camera";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import AppButtonSmall from "../components/AppButtonSmall";
+import AppButtonSmall from "../components/buttons/AppButtonSmall";
 import CameraImagePreview from "../components/CameraImagePreview";
 import Screen from "../components/Screen";
 import cache from "../utility/cache";

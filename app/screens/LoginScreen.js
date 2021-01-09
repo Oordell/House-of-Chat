@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
-import AppButton from "../components/AppButton";
+import AppButton from "../components/buttons/AppButton";
 import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import useAuth from "../auth/useAuth";

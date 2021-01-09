@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
-import AppButtonTiny from "./AppButtonTiny";
+import AppButtonTiny from "./buttons/AppButtonTiny";
 
 function ChatImageAndCameraButton({
   onImagePress,
