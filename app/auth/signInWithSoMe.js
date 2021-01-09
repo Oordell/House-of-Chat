@@ -36,7 +36,10 @@ const facebookSignIn = async () => {
       }
 
       const userInfo = await response.json();
-      const user = createUserObject(userInfo, LOGIN_METHODE.facebook);
+      const user = await await createUserObject(
+        userInfo,
+        LOGIN_METHODE.facebook
+      );
       facebookFirebaseSignIn({ ...user, token });
       usersApi.storeOrUpdateUser(user);
 
@@ -116,7 +119,7 @@ const googleSignIn = async () => {
 
       googleFirebaseSignIn(result);
 
-      return createUserObject(result.user, LOGIN_METHODE.google);
+      return await createUserObject(result.user, LOGIN_METHODE.google);
     } else {
       logger.logMessage("User canceled sign in with Google.");
     }
@@ -144,7 +147,7 @@ const googleFirebaseSignIn = (googleUser) => {
           // Sign in with credential from the Google user.
           await firebase.auth().signInWithCredential(credential);
 
-          const userInfo = createUserObject(
+          const userInfo = await createUserObject(
             googleUser.user,
             LOGIN_METHODE.google
           );
@@ -176,13 +179,15 @@ const isGoogleUserEqual = (googleUser, firebaseUser) => {
   return false;
 };
 
-const createUserObject = (userInfo, logInMethode) => {
+const createUserObject = async (userInfo, logInMethode) => {
+  const userInDb = await usersApi.getUserIfExists(userInfo.id);
+
   const commonAttributes = {
     fullName: userInfo.name,
     email: userInfo.email,
     _id: userInfo.id,
     lastSignIn: firebase.firestore.Timestamp.now(),
-    roomIdsUserHasChatedIn: [],
+    roomIdsUserHasChatedIn: userInDb ? userInDb.roomIdsUserHasChatedIn : [],
   };
 
   if (logInMethode === LOGIN_METHODE.facebook) {

@@ -84,8 +84,10 @@ function ChatScreen({ route, navigation }) {
   };
 
   const isUsersFirstMessageInRoom = (roomId, user) => {
-    for (let room of user.roomIdsUserHasChatedIn) {
-      if (roomId === room) return false;
+    if (user.roomIdsUserHasChatedIn) {
+      for (let room of user.roomIdsUserHasChatedIn) {
+        if (roomId === room) return false;
+      }
     }
     return true;
   };

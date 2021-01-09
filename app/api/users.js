@@ -16,6 +16,7 @@ const storeOrUpdateUser = async (userInfo) => {
   const newUserPayload = {
     ...userInfo,
     createdAt: firebase.firestore.Timestamp.now(),
+    roomIdsUserHasChatedIn: [],
   };
   const updatedUserPayload = {
     lastSignIn: firebase.firestore.Timestamp.now(),
@@ -59,7 +60,23 @@ const signOutUser = async () => {
   }
 };
 
+const getUserIfExists = async (userId) => {
+  try {
+    const res = await db.where("_id", "==", userId).get();
+
+    let user;
+    res.forEach((doc) => (user = doc));
+
+    if (!user) return false;
+    return user.data();
+  } catch (error) {
+    logger.logMessage("Error trying to get the user object from Firebase.");
+    logger.logError(error);
+  }
+};
+
 export default {
   storeOrUpdateUser,
   signOutUser,
+  getUserIfExists,
 };
