@@ -12,6 +12,7 @@ import UserImage from "../components/UserImage";
 import routs from "../navigation/routs";
 import chatRoomsApi from "../api/chatRooms";
 import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
+import AppButtonSmall from "../components/AppButtonSmall";
 
 function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();
@@ -36,11 +37,12 @@ function ChatRoomsScreen({ navigation }) {
     usersApi.signOutUser();
   };
 
-  const handleAddChatRoom = () => {
-    chatRoomsApi.createNewChatRoom(
+  const handleAddChatRoom = async () => {
+    await chatRoomsApi.createNewChatRoom(
       "New Room",
       "A description of the new room."
     );
+    getChatRooms();
   };
 
   return (
@@ -61,11 +63,7 @@ function ChatRoomsScreen({ navigation }) {
           <View style={styles.userInfo}>
             <UserImage imageUri={user.pictureUrl} />
             <AppText style={styles.userName}>{user.fullName}</AppText>
-            <AppButton
-              width="50%"
-              title="Add Chat Room"
-              onPress={handleAddChatRoom}
-            />
+            <AppButtonSmall iconName="plus" onPress={handleAddChatRoom} />
           </View>
         }
         renderItem={({ item }) => (
@@ -108,6 +106,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     flex: 1,
   },
   userName: {

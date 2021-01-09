@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 100,
     width: "100%",
+    marginVertical: 10,
   },
   button: {
     overflow: "hidden",
     borderRadius: 100,
-    marginVertical: 10,
   },
   icon: {
     position: "absolute",

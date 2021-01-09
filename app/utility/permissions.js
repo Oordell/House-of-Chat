@@ -31,7 +31,6 @@ const requestCameraPermission = async () => {
 const requestNotificationPermission = async () => {
   try {
     const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    console.log("Permissions: ", permission);
 
     return permission.granted ? true : false;
   } catch (error) {

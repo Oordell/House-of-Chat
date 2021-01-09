@@ -11,12 +11,9 @@ import ErrorOverlay from "../components/overlays/ErrorOverlay";
 function LoginScreen(props) {
   const { logIn } = useAuth();
   const [signInFailed, setSignInFailed] = useState(false);
-  const [signInPressed, setSignInPressed] = useState(false);
 
   const handleFacebookLogin = async () => {
-    setSignInPressed(true);
     const user = await signInWithSoMe.facebookSignIn();
-    setSignInPressed(false);
     if (!user) setSignInFailed(true);
     else {
       setSignInFailed(false);
@@ -25,9 +22,7 @@ function LoginScreen(props) {
   };
 
   const handleGoogleLogin = async () => {
-    setSignInPressed(true);
     const user = await signInWithSoMe.googleSignIn();
-    setSignInPressed(false);
     if (!user) setSignInFailed(true);
     else {
       setSignInFailed(false);
@@ -62,7 +57,6 @@ function LoginScreen(props) {
           onPress={handleGoogleLogin}
         />
       </View>
-      <ActivityIndicatorOverlay visible={signInPressed} />
       <ErrorOverlay
         visible={signInFailed}
         toggleOverlay={toggleOverlayVisible}
@@ -83,8 +77,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     resizeMode: "cover",
-    width: 300,
-    height: 300,
+    width: 400,
+    height: 400,
   },
   logoContainer: {
     position: "absolute",
