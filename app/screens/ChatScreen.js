@@ -14,15 +14,24 @@ import messageApi from "../api/messages";
 import routs from "../navigation/routs";
 import storageApi from "../api/storage";
 import useAuth from "../auth/useAuth";
+import usersApi from "../api/users";
+import NotificationsOverlay from "../components/overlays/NotificationsOverlay";
+import chatRoomsApi from "../api/chatRooms";
+import useNotifications from "../hooks/useNotifications";
 
 function ChatScreen({ route, navigation }) {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
+  const {
+    registerForNotificationsAndGetToken,
+    addNotificationListener,
+  } = useNotifications();
   const chatRoom = route.params;
   const [messages, setMessages] = useState([]);
   const [chatUser, setChatUser] = useState({});
   const [localImageUri, setLocalImageUri] = useState(null);
   const [imageIsSelected, setImageIsSelected] = useState(false);
   const [imageIsBeingUploaded, setImageIsBeingUploaded] = useState(false);
+  const [notificationsOverlay, setNotificationsOverlay] = useState(false);
 
   useEffect(() => {
     // Reset state to avoid errors on reloads:
@@ -101,6 +110,13 @@ function ChatScreen({ route, navigation }) {
     }
   };
 
+  const isUsersFirstMessageInRoom = (roomId, user) => {
+    for (let room of user.roomIdsUserHasChatedIn) {
+      if (roomId === room) return false;
+    }
+    return true;
+  };
+
   const handleSendMessage = async (message) => {
     let msg;
     if (localImageUri) {
@@ -112,7 +128,18 @@ function ChatScreen({ route, navigation }) {
     } else {
       msg = { ...message[0] };
     }
-    await messageApi.addMessage(msg, chatRoom.id);
+
+    if (isUsersFirstMessageInRoom(chatRoom.id, user)) {
+      let updatedUser = { ...user };
+      updatedUser.roomIdsUserHasChatedIn.push(chatRoom.id);
+      await updateUser(updatedUser);
+
+      await usersApi.storeOrUpdateUser(updatedUser);
+
+      setNotificationsOverlay(true);
+    }
+
+    await messageApi.addMessage(msg, chatRoom.id, user);
     setImageIsBeingUploaded(false);
     setLocalImageUri(null);
     setImageIsSelected(false);
@@ -168,6 +195,24 @@ function ChatScreen({ route, navigation }) {
     setImageIsBeingUploaded(false);
   };
 
+  const handleNotificationsYesPressed = async () => {
+    setNotificationsOverlay(false);
+    const pushToken = await registerForNotificationsAndGetToken();
+    addNotificationListener((response) => {
+      const params = response.notification.request.content.data;
+      navigation.navigate(routs.CHAT, params);
+    });
+    chatRoomsApi.updateChatRoomSubUserForNotifications(
+      chatRoom.id,
+      user,
+      pushToken
+    );
+  };
+
+  const handleNotificationsNoPressed = () => {
+    setNotificationsOverlay(false);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ChatHeader
@@ -177,6 +222,11 @@ function ChatScreen({ route, navigation }) {
       {imageIsBeingUploaded && (
         <ActivityIndicator color={colors.text_light} size="large" />
       )}
+      <NotificationsOverlay
+        visible={notificationsOverlay}
+        onYesPressed={handleNotificationsYesPressed}
+        onNoPressed={handleNotificationsNoPressed}
+      />
       <GiftedChat
         user={chatUser}
         messages={messages}

@@ -15,6 +15,7 @@ const storeOrUpdateUser = async (userInfo) => {
     if (user.exists)
       return await db.doc(currentUser.uid).update({
         lastSignIn: firebase.firestore.Timestamp.now(),
+        roomIdsUserHasChatedIn: userInfo.roomIdsUserHasChatedIn,
       });
 
     await db.doc(currentUser.uid).set({

@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet } from "react-native";
 import { Overlay } from "react-native-elements";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 function ActivityIndicatorOverlay({ visible }) {
   return (

@@ -5,6 +5,7 @@ import AppButtonSmall from "../components/AppButtonSmall";
 import CameraImagePreview from "../components/CameraImagePreview";
 import Screen from "../components/Screen";
 import cache from "../utility/cache";
+import logger from "../utility/logger";
 
 function CameraScreen({ navigation }) {
   let camera;
@@ -18,7 +19,8 @@ function CameraScreen({ navigation }) {
       setCapturedImage(image.uri);
       setPreviewVisible(true);
     } catch (error) {
-      console.log("Error taking image: ", error);
+      logger.logMessage("Error taking image: ");
+      logger.logError(error);
     }
   };
 

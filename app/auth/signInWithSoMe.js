@@ -38,7 +38,7 @@ const facebookSignIn = async () => {
       const user = createUserObject(userInfo, LOGIN_METHODE.facebook);
       facebookFirebaseSignIn({ ...user, token });
 
-      return null; // user;
+      return user;
     } else {
       logger.logMessage("User canceled sign in with Gacebook.");
     }
@@ -180,6 +180,7 @@ const createUserObject = (userInfo, logInMethode) => {
     email: userInfo.email,
     _id: userInfo.id,
     lastSignIn: firebase.firestore.Timestamp.now(),
+    roomIdsUserHasChatedIn: [],
   };
 
   if (logInMethode === LOGIN_METHODE.facebook) {

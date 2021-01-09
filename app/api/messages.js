@@ -6,6 +6,7 @@ import dbConfig from "../config/db";
 if (firebase.apps.length === 0) dbConfig();
 
 import apiEndpoints from "./endpoints";
+import chatRoomsApi from "./chatRooms";
 
 const db = firebase.firestore().collection(apiEndpoints.MESSAGES);
 
@@ -57,6 +58,8 @@ const addMessage = async (message, roomId) => {
     await db.add(msg);
 
     await chatRoomApi.updateChatRoomLatestChat(msg, roomId);
+
+    chatRoomsApi.sendNotificationsToRoomSubs(msg.user._id, roomId);
   } catch (error) {
     logger.logMessage("Error adding a message to Firebase.");
     logger.logError(error);

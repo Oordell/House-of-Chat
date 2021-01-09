@@ -6,7 +6,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 import { LinearGradient } from "expo-linear-gradient";
 
-function AppButton({ color = "primary", iconName, title, onPress }) {
+function AppButton({
+  color = "primary",
+  iconName,
+  title,
+  onPress,
+  width = "100%",
+}) {
   const colorsGradiant = [
     colors[color + "_dark"],
     colors[color],
@@ -14,7 +20,7 @@ function AppButton({ color = "primary", iconName, title, onPress }) {
   ];
 
   return (
-    <View style={[styles.constainer, defaultStyles.shadows]}>
+    <View style={[styles.container, defaultStyles.shadows, { width }]}>
       <Pressable
         style={({ pressed }) => [
           {

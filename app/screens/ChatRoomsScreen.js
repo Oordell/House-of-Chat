@@ -11,7 +11,7 @@ import usersApi from "../api/users";
 import UserImage from "../components/UserImage";
 import routs from "../navigation/routs";
 import chatRoomsApi from "../api/chatRooms";
-import ActivityIndicatorOverlay from "../components/ActivityIndicatorOverlay";
+import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
 
 function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();
@@ -61,7 +61,11 @@ function ChatRoomsScreen({ navigation }) {
           <View style={styles.userInfo}>
             <UserImage imageUri={user.pictureUrl} />
             <AppText style={styles.userName}>{user.fullName}</AppText>
-            {/* <AppButton title="Add Chat Room" onPress={handleAddChatRoom} /> */}
+            <AppButton
+              width="50%"
+              title="Add Chat Room"
+              onPress={handleAddChatRoom}
+            />
           </View>
         }
         renderItem={({ item }) => (

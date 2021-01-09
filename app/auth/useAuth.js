@@ -15,5 +15,11 @@ export default useAuth = () => {
     authStorage.removeUser();
   };
 
-  return { user, logIn, logOut };
+  const updateUser = async (user) => {
+    setUser(user);
+    await authStorage.removeUser();
+    authStorage.storeUser(user);
+  };
+
+  return { user, logIn, logOut, updateUser };
 };

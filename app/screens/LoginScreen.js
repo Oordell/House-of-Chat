@@ -5,8 +5,8 @@ import AppText from "../components/AppText";
 import Screen from "../components/Screen";
 import useAuth from "../auth/useAuth";
 import signInWithSoMe from "../auth/signInWithSoMe";
-import ActivityIndicatorOverlay from "../components/ActivityIndicatorOverlay";
-import ErrorOverlay from "../components/ErrorOverlay";
+import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
+import ErrorOverlay from "../components/overlays/ErrorOverlay";
 
 function LoginScreen(props) {
   const { logIn } = useAuth();

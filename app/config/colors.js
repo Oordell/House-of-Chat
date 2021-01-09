@@ -23,4 +23,6 @@ export default Object.freeze({
   delete_light: "#ff6e6e",
   delete_dark: "#c42f2f",
   save: "#5bf444",
+  save_dark: "#34ba20",
+  save_light: "#90ff80",
 });
