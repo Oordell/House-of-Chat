@@ -231,7 +231,7 @@ function ChatScreen({ route, navigation }) {
         user={chatUser}
         messages={messages}
         renderUsernameOnMessage
-        infiniteScroll
+        infiniteScroll={false}
         scrollToBottom
         listViewProps={{
           onEndReachedThreshold: 0.5,
