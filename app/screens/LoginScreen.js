@@ -7,6 +7,8 @@ import ErrorOverlay from "../components/overlays/ErrorOverlay";
 import Screen from "../components/Screen";
 import signInWithSoMe from "../auth/signInWithSoMe";
 import useAuth from "../auth/useAuth";
+import { ImageBackground } from "react-native";
+import { Platform } from "react-native";
 
 function LoginScreen(props) {
   const { logIn } = useAuth();
@@ -35,7 +37,12 @@ function LoginScreen(props) {
   };
 
   return (
-    <Screen style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      imageStyle={{ opacity: 0.6, resizeMode: "cover" }}
+      source={require("../assets/background.png")}
+      blurRadius={Platform.OS === "ios" ? 7 : 2}
+    >
       <View style={styles.logoContainer}>
         <Image
           source={require("../assets/adaptive-icon.png")}
@@ -61,7 +68,7 @@ function LoginScreen(props) {
         visible={signInFailed}
         toggleOverlay={toggleOverlayVisible}
       />
-    </Screen>
+    </ImageBackground>
   );
 }
 
@@ -82,13 +89,13 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     position: "absolute",
-    top: 70,
+    top: 0,
     alignItems: "center",
   },
   text: {
     fontSize: 25,
     fontWeight: "bold",
-    marginTop: -70,
+    marginTop: -100,
   },
 });
 

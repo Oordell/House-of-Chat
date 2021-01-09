@@ -30,6 +30,18 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "olliver",
+            "project": "house-of-chat",
+            "authToken": "a17ceec47e90437a819e2dd530b5eb00e5a01a8bfad640e3a1ee432c4c08bd28"
+          }
+        }
+      ]
     }
   },
   "facebookScheme": "fb2744554949143350",

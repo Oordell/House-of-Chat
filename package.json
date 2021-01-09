@@ -20,7 +20,11 @@
     "expo-facebook": "~9.1.0",
     "expo-google-app-auth": "^8.1.4",
     "expo-image-picker": "~9.2.0",
+    "expo-linear-gradient": "~8.4.0",
+    "expo-notifications": "~0.8.2",
+    "expo-permissions": "~10.0.0",
     "expo-secure-store": "~9.3.0",
+    "expo-splash-screen": "~0.8.1",
     "expo-status-bar": "~1.0.3",
     "firebase": "7.9.0",
     "react": "16.13.1",
@@ -33,10 +37,7 @@
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
     "react-native-web": "~0.13.12",
-    "expo-linear-gradient": "~8.4.0",
-    "expo-splash-screen": "~0.8.1",
-    "expo-notifications": "~0.8.2",
-    "expo-permissions": "~10.0.0"
+    "sentry-expo": "^3.0.4"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

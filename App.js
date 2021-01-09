@@ -8,8 +8,11 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import ChatNavigator from "./app/navigation/ChatNavigator";
 import db from "./app/config/db";
+import logger from "./app/utility/logger";
 import LoginScreen from "./app/screens/LoginScreen";
 import navigationTheme from "./app/navigation/navigationTheme";
+
+logger.start();
 
 // Ignoring warnings.
 LogBox.ignoreLogs([
@@ -42,7 +45,8 @@ export default function App() {
           setIsReady(true);
           await SplashScreen.hideAsync();
         }}
-        onError={console.warn}
+        onError={(error) => logger.logError(error)}
+        autoHideSplash={false}
       />
     );
 
