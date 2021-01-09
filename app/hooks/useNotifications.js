@@ -1,6 +1,7 @@
 import * as Notifications from "expo-notifications";
-import { useEffect } from "react";
 import { Platform } from "react-native";
+import { useEffect } from "react";
+
 import logger from "../utility/logger";
 import permissions from "../utility/permissions";
 

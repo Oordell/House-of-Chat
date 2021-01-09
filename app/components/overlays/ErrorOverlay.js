@@ -1,9 +1,10 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet } from "react-native";
 import { Overlay } from "react-native-elements";
-import colors from "../../config/colors";
+import { StyleSheet } from "react-native";
+
 import AppButton from "../buttons/AppButton";
 import AppText from "../AppText";
+import colors from "../../config/colors";
 
 function ErrorOverlay({ visible, toggleOverlay }) {
   return (

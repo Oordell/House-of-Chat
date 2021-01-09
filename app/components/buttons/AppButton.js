@@ -1,10 +1,11 @@
 import React from "react";
-import { StyleSheet, Pressable, View } from "react-native";
-import colors from "../../config/colors";
-import AppText from "../AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import defaultStyles from "../../config/styles";
 import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, Pressable, View } from "react-native";
+
+import AppText from "../AppText";
+import colors from "../../config/colors";
+import defaultStyles from "../../config/styles";
 
 function AppButton({
   color = "primary",

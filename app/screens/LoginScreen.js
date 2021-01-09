@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
+
 import AppButton from "../components/buttons/AppButton";
 import AppText from "../components/AppText";
-import Screen from "../components/Screen";
-import useAuth from "../auth/useAuth";
-import signInWithSoMe from "../auth/signInWithSoMe";
-import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
 import ErrorOverlay from "../components/overlays/ErrorOverlay";
+import Screen from "../components/Screen";
+import signInWithSoMe from "../auth/signInWithSoMe";
+import useAuth from "../auth/useAuth";
 
 function LoginScreen(props) {
   const { logIn } = useAuth();

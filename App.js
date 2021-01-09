@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import * as SplashScreen from "expo-splash-screen";
 import { LogBox } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import AppLoading from "expo-app-loading";
+
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+import ChatNavigator from "./app/navigation/ChatNavigator";
 import db from "./app/config/db";
 import LoginScreen from "./app/screens/LoginScreen";
-import AppLoading from "expo-app-loading";
-import { NavigationContainer } from "@react-navigation/native";
-import ChatNavigator from "./app/navigation/ChatNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
-import * as SplashScreen from "expo-splash-screen";
 
 // Ignoring warnings.
 LogBox.ignoreLogs([
@@ -17,7 +18,7 @@ LogBox.ignoreLogs([
   // This is from Gifted Chats impimentation. So far it seams it can be ignored.
   "Animated.event now requires a second argument for options",
   "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
-  // Some splash screen warning:
+  // Some splash screen warning that Expo-team is set to fix in the future. Nothing I can do about it.
   "[Unhandled promise rejection: Error: No native splash screen registered for given view controller.",
 ]);
 

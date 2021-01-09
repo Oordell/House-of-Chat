@@ -1,5 +1,5 @@
 const sendNotificationToUser = (expoPushToken, roomName, roomId) => {
-  let response = fetch("https://exp.host/--/api/v2/push/send", {
+  fetch("https://exp.host/--/api/v2/push/send", {
     method: "POST",
     headers: {
       Accept: "application/json",

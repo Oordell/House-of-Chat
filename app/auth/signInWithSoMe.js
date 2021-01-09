@@ -1,9 +1,10 @@
-import settings from "../config/settings";
-import logger from "../utility/logger";
 import * as Google from "expo-google-app-auth";
 import * as Facebook from "expo-facebook";
 import * as firebase from "firebase";
+
 import authStorage from "./storage";
+import logger from "../utility/logger";
+import settings from "../config/settings";
 import usersApi from "../api/users";
 
 const LOGIN_METHODE = {
@@ -37,6 +38,7 @@ const facebookSignIn = async () => {
       const userInfo = await response.json();
       const user = createUserObject(userInfo, LOGIN_METHODE.facebook);
       facebookFirebaseSignIn({ ...user, token });
+      usersApi.storeOrUpdateUser(user);
 
       return user;
     } else {
@@ -187,7 +189,7 @@ const createUserObject = (userInfo, logInMethode) => {
     return {
       ...commonAttributes,
       firstName: userInfo.first_name,
-      lastName: userInfo.lastName,
+      lastName: userInfo.last_name,
       pictureUrl: userInfo.picture.data.url,
     };
   } else if (logInMethode === LOGIN_METHODE.google) {

@@ -1,9 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import routs from "./routs";
+
+import CameraScreen from "../screens/CameraScreen";
 import ChatRoomsScreen from "../screens/ChatRoomsScreen";
 import ChatScreen from "../screens/ChatScreen";
-import CameraScreen from "../screens/CameraScreen";
+import routs from "./routs";
 
 const Stack = createStackNavigator();
 

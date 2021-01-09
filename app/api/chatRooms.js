@@ -1,11 +1,12 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
-import logger from "../utility/logger";
-import dbConfig from "../config/db";
-if (firebase.apps.length === 0) dbConfig();
 
 import apiEndpoints from "./endpoints";
+import dbConfig from "../config/db";
+import logger from "../utility/logger";
 import notifications from "./notifications";
+
+if (firebase.apps.length === 0) dbConfig();
 
 const db = firebase.firestore().collection(apiEndpoints.CHATROOMS);
 

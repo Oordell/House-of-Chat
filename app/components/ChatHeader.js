@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Pressable } from "react-native";
-import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, StyleSheet, Pressable } from "react-native";
+
 import AppText from "./AppText";
+import colors from "../config/colors";
 import Constants from "expo-constants";
 
 function ChatHeader({ headerTitle, onPressBack }) {

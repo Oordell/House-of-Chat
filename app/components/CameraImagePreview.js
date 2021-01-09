@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ImageBackground } from "react-native";
-import AppButtonSmall from "./AppButtonSmall";
-import Constants from "expo-constants";
+
+import AppButtonSmall from "./buttons/AppButtonSmall";
 
 function CameraImagePreview({ capturedImage, onDeletePressed, onSavePressed }) {
   return (

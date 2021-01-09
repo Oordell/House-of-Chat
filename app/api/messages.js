@@ -1,12 +1,13 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
-import logger from "../utility/logger";
-import chatRoomApi from "./chatRooms";
-import dbConfig from "../config/db";
-if (firebase.apps.length === 0) dbConfig();
 
 import apiEndpoints from "./endpoints";
+import chatRoomApi from "./chatRooms";
 import chatRoomsApi from "./chatRooms";
+import dbConfig from "../config/db";
+import logger from "../utility/logger";
+
+if (firebase.apps.length === 0) dbConfig();
 
 const db = firebase.firestore().collection(apiEndpoints.MESSAGES);
 

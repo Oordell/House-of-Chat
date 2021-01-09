@@ -1,11 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Pressable } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import colors from "../config/colors";
-import AppText from "./AppText";
-import defaultStyles from "../config/styles";
-import dayjs from "dayjs";
 import { LinearGradient } from "expo-linear-gradient";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, StyleSheet, Pressable } from "react-native";
+import dayjs from "dayjs";
+
+import AppText from "./AppText";
+import colors from "../config/colors";
+import defaultStyles from "../config/styles";
 
 function ListItem({ title, subTitle, lastUpdate, onPress }) {
   const time = dayjs(lastUpdate).format("DD/MM-YYYY, HH:mm:ss");

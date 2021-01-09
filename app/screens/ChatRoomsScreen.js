@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, LogBox } from "react-native";
+
+import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
+import AppButton from "../components/buttons/AppButton";
+import AppButtonSmall from "../components/buttons/AppButtonSmall";
 import AppText from "../components/AppText";
-import Screen from "../components/Screen";
+import authStorage from "../auth/storage";
+import chatRoomsApi from "../api/chatRooms";
 import dbRooms from "../api/chatRooms";
 import ListItem from "../components/ListItem";
-import AppButton from "../components/buttons/AppButton";
-import authStorage from "../auth/storage";
+import routs from "../navigation/routs";
+import Screen from "../components/Screen";
 import useAuth from "../auth/useAuth";
 import usersApi from "../api/users";
 import UserImage from "../components/UserImage";
-import routs from "../navigation/routs";
-import chatRoomsApi from "../api/chatRooms";
-import ActivityIndicatorOverlay from "../components/overlays/ActivityIndicatorOverlay";
-import AppButtonSmall from "../components/buttons/AppButtonSmall";
+
+// Ignoring warnings.
+LogBox.ignoreLogs([
+  // Some splash screen warning that Expo-team is set to fix in the future. Nothing I can do about it.
+  "[Unhandled promise rejection: Error: No native splash screen registered for given view controller.",
+]);
 
 function ChatRoomsScreen({ navigation }) {
   const { user, logOut } = useAuth();

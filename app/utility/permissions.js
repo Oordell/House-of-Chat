@@ -1,8 +1,9 @@
-import * as Permissions from "expo-permissions";
-import logger from "../utility/logger";
-import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import { Alert } from "react-native";
 import { Camera } from "expo-camera";
+
+import logger from "../utility/logger";
 
 const requestMediaLibraryPermission = async () => {
   try {

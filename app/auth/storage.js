@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+
 import logger from "../utility/logger";
 
 const keyToken = "authToken";

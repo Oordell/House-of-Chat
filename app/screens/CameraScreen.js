@@ -1,11 +1,12 @@
-import { Camera } from "expo-camera";
 import React, { useState } from "react";
+import { Camera } from "expo-camera";
 import { StyleSheet, View } from "react-native";
+
 import AppButtonSmall from "../components/buttons/AppButtonSmall";
-import CameraImagePreview from "../components/CameraImagePreview";
-import Screen from "../components/Screen";
 import cache from "../utility/cache";
+import CameraImagePreview from "../components/CameraImagePreview";
 import logger from "../utility/logger";
+import Screen from "../components/Screen";
 
 function CameraScreen({ navigation }) {
   let camera;
@@ -15,7 +16,7 @@ function CameraScreen({ navigation }) {
 
   const handleTakePicture = async () => {
     try {
-      const image = await camera.takePictureAsync({ quality: 0.5 });
+      const image = await camera.takePictureAsync({ quality: 1 });
       setCapturedImage(image.uri);
       setPreviewVisible(true);
     } catch (error) {

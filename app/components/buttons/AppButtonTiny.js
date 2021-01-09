@@ -1,6 +1,7 @@
 import React from "react";
-import { View, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, StyleSheet, Pressable } from "react-native";
+
 import colors from "../../config/colors";
 
 function AppButtonTiny({

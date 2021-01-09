@@ -1,8 +1,10 @@
+import { Platform } from "react-native";
 import * as firebase from "firebase";
 import "firebase/firestore";
-import { Platform } from "react-native";
-import logger from "../utility/logger";
+
 import dbConfig from "../config/db";
+import logger from "../utility/logger";
+
 if (firebase.apps.length === 0) dbConfig();
 
 const db = firebase.storage();
