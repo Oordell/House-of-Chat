@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Alert, StyleSheet, View, ActivityIndicator } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import * as ImagePicker from "expo-image-picker";
-import { Camera } from "expo-camera";
 
 import AppText from "../components/AppText";
 import cache from "../utility/cache";
@@ -18,6 +17,7 @@ import usersApi from "../api/users";
 import NotificationsOverlay from "../components/overlays/NotificationsOverlay";
 import chatRoomsApi from "../api/chatRooms";
 import useNotifications from "../hooks/useNotifications";
+import permissions from "../utility/permissions";
 
 function ChatScreen({ route, navigation }) {
   const { user, updateUser } = useAuth();
@@ -67,33 +67,6 @@ function ChatScreen({ route, navigation }) {
     },
     [messages]
   );
-
-  const requestMediaLibraryPermission = async () => {
-    try {
-      const {
-        granted,
-      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (!granted)
-        return Alert.alert(
-          "You need to enable permission to acces the library."
-        );
-    } catch (error) {
-      logger.logMessage(
-        "Error trying to get permissions to access the users media library."
-      );
-      logger.logError(error);
-    }
-  };
-
-  const requestCameraPermissions = async () => {
-    try {
-      const { status } = await Camera.requestPermissionsAsync();
-      return status === "granted";
-    } catch (error) {
-      logger.logMessage("Error while trying to get permission for the Camera.");
-      logger.logError(error);
-    }
-  };
 
   const pickImageFromLibrary = async () => {
     try {
@@ -148,7 +121,7 @@ function ChatScreen({ route, navigation }) {
   const handleImageIconPressed = async () => {
     setLocalImageUri(null);
     setImageIsSelected(true);
-    await requestMediaLibraryPermission();
+    await permissions.requestMediaLibraryPermission();
     const selectedLocalImageUri = await pickImageFromLibrary();
     if (selectedLocalImageUri) {
       setLocalImageUri(selectedLocalImageUri);
@@ -157,7 +130,7 @@ function ChatScreen({ route, navigation }) {
   };
 
   const handleCameraIconPressed = async () => {
-    const permission = await requestCameraPermissions();
+    const permission = await permissions.requestCameraPermission();
     if (!permission) {
       return Alert.alert("You need to enable permission to acces the camera.");
     }

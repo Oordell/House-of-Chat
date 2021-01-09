@@ -1,22 +1,11 @@
 import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 import logger from "../utility/logger";
+import permissions from "../utility/permissions";
 
 export default useNotifications = () => {
   useEffect(() => {}, []);
-
-  const getPermissionsForNotifications = async () => {
-    try {
-      let permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-
-      return permission.granted ? true : false;
-    } catch (error) {
-      logger.logMessage("Error trying to get permissions for notifications");
-      logger.logError(error);
-    }
-  };
 
   const getExpoPushToken = async () => {
     try {
@@ -29,7 +18,7 @@ export default useNotifications = () => {
   };
 
   const registerForNotificationsAndGetToken = async () => {
-    const permission = await getPermissionsForNotifications();
+    const permission = await permissions.requestNotificationPermission();
     //if (!permission) return null;
 
     const token = await getExpoPushToken();
