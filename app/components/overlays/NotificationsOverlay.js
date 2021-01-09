@@ -13,24 +13,26 @@ function NotificationsOverlay({ visible, onYesPressed, onNoPressed }) {
       isVisible={visible}
       onBackdropPress={onNoPressed}
     >
-      <AppText style={styles.title}>Notifications</AppText>
-      <AppText>
-        Do you want to receive notifications for messages in this chat room?
-      </AppText>
-      <View style={styles.buttonContainer}>
-        <AppButton
-          width="30%"
-          title="yes"
-          color="save"
-          onPress={onYesPressed}
-        />
-        <AppButton
-          width="30%"
-          title="no"
-          color="delete"
-          onPress={onNoPressed}
-        />
-      </View>
+      <>
+        <AppText style={styles.title}>Notifications</AppText>
+        <AppText>
+          Do you want to receive notifications for messages in this chat room?
+        </AppText>
+        <View style={styles.buttonContainer}>
+          <AppButton
+            width="30%"
+            title="yes"
+            color="save"
+            onPress={onYesPressed}
+          />
+          <AppButton
+            width="30%"
+            title="no"
+            color="delete"
+            onPress={onNoPressed}
+          />
+        </View>
+      </>
     </Overlay>
   );
 }

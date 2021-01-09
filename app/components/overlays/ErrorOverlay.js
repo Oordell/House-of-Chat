@@ -12,9 +12,11 @@ function ErrorOverlay({ visible, toggleOverlay }) {
       isVisible={visible}
       onBackdropPress={toggleOverlay}
     >
-      <AppText style={styles.text}>Error signing in</AppText>
-      <AppText style={styles.text}>Please try again</AppText>
-      <AppButton title="back" onPress={toggleOverlay} />
+      <>
+        <AppText style={styles.text}>Error signing in</AppText>
+        <AppText style={styles.text}>Please try again</AppText>
+        <AppButton title="back" onPress={toggleOverlay} />
+      </>
     </Overlay>
   );
 }
