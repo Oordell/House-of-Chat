@@ -1,21 +1,29 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  Platform,
+  StyleSheet,
+  View,
+} from "react-native";
 
 import AppButton from "../components/buttons/AppButton";
 import AppText from "../components/AppText";
+import colors from "../config/colors";
 import ErrorOverlay from "../components/overlays/ErrorOverlay";
-import Screen from "../components/Screen";
 import signInWithSoMe from "../auth/signInWithSoMe";
 import useAuth from "../auth/useAuth";
-import { ImageBackground } from "react-native";
-import { Platform } from "react-native";
 
 function LoginScreen(props) {
   const { logIn } = useAuth();
   const [signInFailed, setSignInFailed] = useState(false);
+  const [singInPressed, setSignInPressed] = useState(false);
 
   const handleFacebookLogin = async () => {
+    setSignInPressed(true);
     const user = await signInWithSoMe.facebookSignIn();
+    setSignInPressed(false);
     if (!user) setSignInFailed(true);
     else {
       setSignInFailed(false);
@@ -24,7 +32,9 @@ function LoginScreen(props) {
   };
 
   const handleGoogleLogin = async () => {
+    setSignInPressed(true);
     const user = await signInWithSoMe.googleSignIn();
+    setSignInPressed(false);
     if (!user) setSignInFailed(true);
     else {
       setSignInFailed(false);
@@ -50,6 +60,9 @@ function LoginScreen(props) {
         />
         <AppText style={styles.text}>Lets chat!</AppText>
       </View>
+      {singInPressed && (
+        <ActivityIndicator size="large" color={colors.text_light} />
+      )}
       <View style={styles.buttonContainer}>
         <AppButton
           title="Sign in with Facebook"

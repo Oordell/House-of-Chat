@@ -36,10 +36,7 @@ const facebookSignIn = async () => {
       }
 
       const userInfo = await response.json();
-      const user = await await createUserObject(
-        userInfo,
-        LOGIN_METHODE.facebook
-      );
+      const user = await createUserObject(userInfo, LOGIN_METHODE.facebook);
       facebookFirebaseSignIn({ ...user, token });
       usersApi.storeOrUpdateUser(user);
 
@@ -59,14 +56,13 @@ const facebookFirebaseSignIn = async (facebookUser) => {
     .auth()
     .onAuthStateChanged(async (firebaseUser) => {
       unsubscribe();
-      // Check if we are already signed-in Firebase with the correct user.
-      if (!isFacebookUserEqual(facebookUser, firebaseUser)) {
-        // Build Firebase credential with the Facebook auth token.
+      if (
+        !isSoMeUserEqual(facebookUser, firebaseUser, LOGIN_METHODE.facebook)
+      ) {
         const credential = firebase.auth.FacebookAuthProvider.credential(
           facebookUser.token
         );
 
-        // Sign in with the credential from the Facebook user.
         try {
           await firebase.auth().signInWithCredential(credential);
         } catch (error) {
@@ -76,30 +72,12 @@ const facebookFirebaseSignIn = async (facebookUser) => {
           logger.logError(error);
         }
       } else {
-        // User is already signed-in Firebase with the correct user.
         logger.logMessage(
           "User is already signed in to Firebase with Facebook."
         );
       }
     });
 };
-
-function isFacebookUserEqual(facebookAuthResponse, firebaseUser) {
-  if (firebaseUser) {
-    const providerData = firebaseUser.providerData;
-    for (let i = 0; i < providerData.length; i++) {
-      if (
-        providerData[i].providerId ===
-          firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
-        providerData[i].uid === facebookAuthResponse.id
-      ) {
-        // We don't need to re-auth the Firebase connection.
-        return true;
-      }
-    }
-  }
-  return false;
-}
 
 const googleSignIn = async () => {
   const config = {
@@ -130,21 +108,17 @@ const googleSignIn = async () => {
 };
 
 const googleFirebaseSignIn = (googleUser) => {
-  // We need to register an Observer on Firebase Auth to make sure auth is initialized.
   const unsubscribe = firebase
     .auth()
     .onAuthStateChanged(async (firebaseUser) => {
       unsubscribe();
-      // Check if we are already signed-in Firebase with the correct user.
-      if (!isGoogleUserEqual(googleUser, firebaseUser)) {
-        // Build Firebase credential with the Google ID token.
+      if (!isSoMeUserEqual(googleUser, firebaseUser, LOGIN_METHODE.google)) {
         const credential = firebase.auth.GoogleAuthProvider.credential(
           googleUser.idToken,
           googleUser.accessToken
         );
 
         try {
-          // Sign in with credential from the Google user.
           await firebase.auth().signInWithCredential(credential);
 
           const userInfo = await createUserObject(
@@ -162,16 +136,19 @@ const googleFirebaseSignIn = (googleUser) => {
     });
 };
 
-const isGoogleUserEqual = (googleUser, firebaseUser) => {
+const isSoMeUserEqual = (soMeUser, firebaseUser, soMePlatform) => {
   if (firebaseUser) {
+    let userId;
+    if (soMePlatform === LOGIN_METHODE.facebook) userId = soMeUser.id;
+    else if (soMePlatform === LOGIN_METHODE.google) userId = soMeUser.user.id;
+
     const providerData = firebaseUser.providerData;
     for (let i = 0; i < providerData.length; i++) {
       if (
         providerData[i].providerId ===
           firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-        providerData[i].uid === googleUser.user.id
+        providerData[i].uid === userId
       ) {
-        // We don't need to reauth the Firebase connection.
         return true;
       }
     }
