@@ -2,7 +2,8 @@
   "expo": {
     "name": "HouseOfChat",
     "slug": "HouseOfChat",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "privacy": "public",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -17,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.oordell.HouseOfChat"
     },
     "android": {
       "useNextNotificationsApi": true,
@@ -42,7 +44,8 @@
           }
         }
       ]
-    }
+    },
+    "description": "A chat-app where you can chat with others in pre-made chat rooms."
   },
   "facebookScheme": "fb2744554949143350",
   "facebookAppID": "2744554949143350",

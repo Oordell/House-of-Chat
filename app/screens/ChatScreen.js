@@ -18,6 +18,7 @@ import storageApi from "../api/storage";
 import useAuth from "../auth/useAuth";
 import useNotifications from "../hooks/useNotifications";
 import usersApi from "../api/users";
+import AppButton from "../components/buttons/AppButton";
 
 function ChatScreen({ route, navigation }) {
   const { user, updateUser } = useAuth();
