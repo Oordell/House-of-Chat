@@ -35,23 +35,23 @@ function ChatHeader({ headerTitle, onPressBack }) {
 
 const styles = StyleSheet.create({
   button: {
-    position: "absolute",
     left: 15,
+    position: "absolute",
   },
   container: {
-    paddingTop: Constants.statusBarHeight + 15,
     alignItems: "flex-end",
-    justifyContent: "center",
-    flexDirection: "row",
     bottom: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight + 15,
   },
   title: {
-    fontWeight: "bold",
     fontSize: 20,
+    fontWeight: "bold",
   },
   titleView: {
-    width: "75%",
     alignItems: "center",
+    width: "75%",
   },
 });
 

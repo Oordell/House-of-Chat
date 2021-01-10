@@ -30,20 +30,18 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "transparent",
     flex: 1,
-    width: "100%",
-    height: "100%",
+  },
+  deleteButton: {
+    bottom: 20,
+    left: 20,
+    position: "absolute",
   },
   image: {
     flex: 1,
   },
-  deleteButton: {
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-  },
   saveButton: {
-    position: "absolute",
     bottom: 20,
+    position: "absolute",
     right: 20,
   },
 });

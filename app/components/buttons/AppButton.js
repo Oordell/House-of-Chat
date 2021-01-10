@@ -55,29 +55,29 @@ function AppButton({
 }
 
 const styles = StyleSheet.create({
+  button: {
+    borderRadius: 100,
+    overflow: "hidden",
+  },
   container: {
     borderRadius: 100,
-    width: "100%",
     marginVertical: 10,
-  },
-  button: {
-    overflow: "hidden",
-    borderRadius: 100,
-  },
-  icon: {
-    position: "absolute",
-    left: 15,
+    width: "100%",
   },
   gradient: {
-    padding: 15,
     alignItems: "center",
-    justifyContent: "center",
     flexDirection: "row",
+    justifyContent: "center",
+    padding: 15,
+  },
+  icon: {
+    left: 15,
+    position: "absolute",
   },
   title: {
     fontSize: 18,
-    textTransform: "uppercase",
     fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
 

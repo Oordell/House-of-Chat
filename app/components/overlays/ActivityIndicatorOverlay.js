@@ -14,11 +14,11 @@ function ActivityIndicatorOverlay({ visible }) {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    backgroundColor: "transparent",
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     width: "100%",
-    backgroundColor: "transparent",
   },
 });
 

@@ -38,20 +38,20 @@ function NotificationsOverlay({ visible, onYesPressed, onNoPressed }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    width: "80%",
-    backgroundColor: colors.background,
-    borderRadius: 30,
-  },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
   },
+  container: {
+    backgroundColor: colors.background,
+    borderRadius: 30,
+    padding: 20,
+    width: "80%",
+  },
   title: {
     alignSelf: "center",
-    fontWeight: "bold",
     fontSize: 22,
+    fontWeight: "bold",
   },
 });
 

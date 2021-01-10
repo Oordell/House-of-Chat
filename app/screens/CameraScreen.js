@@ -77,19 +77,19 @@ function CameraScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  backButton: {
+    left: 20,
+    position: "absolute",
+    top: 20,
+  },
   cameraContainer: {
+    alignItems: "center",
     flex: 1,
     width: "100%",
-    alignItems: "center",
   },
   takePictureButton: {
-    position: "absolute",
     bottom: 20,
-  },
-  backButton: {
     position: "absolute",
-    left: 20,
-    top: 20,
   },
 });
 

@@ -1,0 +1,23 @@
+This file documents how much time I've spend solving this task.
+
+The most challenging task was integration of Facebook and Google sign-in, both with their api's, 
+but also with Firebase Authentication. It took me a long time of debugging and searching to find 
+out, that authentication of Facebook users doesn't work when using Expo as I do. For some other 
+reason, Facebook sign in couldn't work on physical Android devices. I thought about leaving out 
+the "Sign in with Facebook"-button, and just stick with Google, but I left it, as it still works 
+(without authentication) on iOS, and android simulators.
+
+Mon:    7,5 h.
+Tue:    8,5 h.
+Wed:    6,75h.
+Thu:    9,5 h.
+Fri:    8,75 h.
+Sat:    10,25 h.
+Sun:    5 h.
+
+total:  56,25h.
+
+As I got the task prior to Christmas, I had some time to think it over, and think about how I 
+would solve it. However, I didn't allocate any actual time in the beginning for planing the project,
+nor did I start on the project before the agreed on dates. However Sunday was mostly spend on 
+documenting the project, and testing it on different platforms.

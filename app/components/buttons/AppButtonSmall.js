@@ -1,6 +1,6 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { View, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 
 import colors from "../../config/colors";
 import defaultStyles from "../../config/styles";
@@ -23,27 +23,24 @@ function AppButtonSmall({
       ]}
       onPress={onPress}
     >
-      <View style={styles.icon}>
-        {iconName && (
-          <MaterialCommunityIcons
-            name={iconName}
-            color={colors[iconColor]}
-            size={30}
-          />
-        )}
-      </View>
+      {iconName && (
+        <MaterialCommunityIcons
+          name={iconName}
+          color={colors[iconColor]}
+          size={30}
+        />
+      )}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
+    alignItems: "center",
     borderRadius: 30,
     justifyContent: "center",
-    alignItems: "center",
     padding: 10,
   },
-  icon: {},
 });
 
 export default AppButtonSmall;

@@ -61,6 +61,7 @@ function ChatImageAndCameraButton({
                 iconName="close-circle"
                 iconColor="delete"
                 color="black"
+                onPress={onSelectedImagePressed}
               />
             </View>
           </ImageBackground>
@@ -86,14 +87,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   selectedImage: {
-    overflow: "hidden",
-    width: 40,
-    height: 30,
-    resizeMode: "cover",
-    marginLeft: 10,
-    borderWidth: 1,
     borderColor: colors.text_light,
     borderRadius: 5,
+    borderWidth: 1,
+    height: 30,
+    marginLeft: 10,
+    overflow: "hidden",
+    resizeMode: "cover",
+    width: 40,
   },
   tinyDeleteLogo: {
     position: "absolute",

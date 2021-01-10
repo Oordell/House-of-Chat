@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   logo: {
+    height: 400,
     resizeMode: "cover",
     width: 400,
-    height: 400,
   },
   logoContainer: {
+    alignItems: "center",
     position: "absolute",
     top: 0,
-    alignItems: "center",
   },
   text: {
     fontSize: 25,

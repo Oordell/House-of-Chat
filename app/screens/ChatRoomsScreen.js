@@ -111,12 +111,11 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   userInfo: {
-    marginTop: 10,
-    marginHorizontal: 10,
-    flexDirection: "row",
     alignItems: "center",
-    /* justifyContent: "space-between", */
     flex: 1,
+    flexDirection: "row",
+    marginHorizontal: 10,
+    marginTop: 10,
   },
   userName: {
     marginHorizontal: 10,

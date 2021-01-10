@@ -51,39 +51,33 @@ function ListItem({ title, subTitle, lastUpdate, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  button: {
     borderRadius: 20,
-    margin: 10,
-    backgroundColor: colors.primary,
+    overflow: "hidden",
   },
   chevron: {
     justifyContent: "center",
   },
-  button: {
-    overflow: "hidden",
-    borderRadius: 20,
-    /* justifyContent: "space-between",
-    marginHorizontal: 15,
-    marginTop: 20,
-    padding: 15,
+  container: {
     backgroundColor: colors.primary,
-    borderRadius: 20, */
+    borderRadius: 20,
+    margin: 10,
   },
   description: {
-    marginLeft: 10,
     flex: 1,
+    marginLeft: 10,
   },
   gradient: {
-    padding: 15,
     alignItems: "center",
     flexDirection: "row",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
+    padding: 15,
   },
   subTitle: {
     color: colors.text_light,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 

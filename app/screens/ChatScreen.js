@@ -18,7 +18,6 @@ import storageApi from "../api/storage";
 import useAuth from "../auth/useAuth";
 import useNotifications from "../hooks/useNotifications";
 import usersApi from "../api/users";
-import AppButton from "../components/buttons/AppButton";
 
 function ChatScreen({ route, navigation }) {
   const { user, updateUser } = useAuth();
@@ -246,8 +245,8 @@ function ChatScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   emptyChat: {
-    flex: 1,
     alignItems: "center",
+    flex: 1,
     justifyContent: "center",
     transform: [{ rotateX: "180deg" }],
   },

@@ -24,16 +24,16 @@ function ErrorOverlay({ visible, toggleOverlay }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    justifyContent: "center",
     alignItems: "center",
-    width: "80%",
     backgroundColor: colors.delete,
     borderRadius: 40,
+    justifyContent: "center",
+    padding: 20,
+    width: "80%",
   },
   text: {
-    fontWeight: "bold",
     fontSize: 30,
+    fontWeight: "bold",
     marginBottom: 10,
   },
 });
