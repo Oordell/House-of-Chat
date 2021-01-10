@@ -24,7 +24,11 @@ function ChatHeader({ headerTitle, onPressBack }) {
           color={colors.text}
         />
       </Pressable>
-      <AppText style={styles.title}>{headerTitle}</AppText>
+      <View style={styles.titleView}>
+        <AppText style={styles.title} numberOfLines={1}>
+          {headerTitle}
+        </AppText>
+      </View>
     </View>
   );
 }
@@ -44,6 +48,10 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 20,
+  },
+  titleView: {
+    width: "75%",
+    alignItems: "center",
   },
 });
 

@@ -44,6 +44,7 @@ function ChatRoomsScreen({ navigation }) {
     usersApi.signOutUser();
   };
 
+  // Adding a chat room in development:
   const handleAddChatRoom = async () => {
     await chatRoomsApi.createNewChatRoom(
       "New Room",
@@ -70,7 +71,8 @@ function ChatRoomsScreen({ navigation }) {
           <View style={styles.userInfo}>
             <UserImage imageUri={user.pictureUrl} />
             <AppText style={styles.userName}>{user.fullName}</AppText>
-            <AppButtonSmall iconName="plus" onPress={handleAddChatRoom} />
+            {/* Adding a chat room in development: */}
+            {/* <AppButtonSmall iconName="plus" onPress={handleAddChatRoom} /> */}
           </View>
         }
         renderItem={({ item }) => (
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    /* justifyContent: "space-between", */
     flex: 1,
   },
   userName: {

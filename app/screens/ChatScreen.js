@@ -125,10 +125,8 @@ function ChatScreen({ route, navigation }) {
     setImageIsSelected(true);
     await permissions.requestMediaLibraryPermission();
     const selectedLocalImageUri = await pickImageFromLibrary();
-    if (selectedLocalImageUri) {
-      setLocalImageUri(selectedLocalImageUri);
-      setImageIsSelected(false);
-    }
+    setImageIsSelected(false);
+    if (selectedLocalImageUri) setLocalImageUri(selectedLocalImageUri);
   };
 
   const handleCameraIconPressed = async () => {

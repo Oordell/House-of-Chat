@@ -20,7 +20,7 @@ export default useNotifications = () => {
 
   const registerForNotificationsAndGetToken = async () => {
     const permission = await permissions.requestNotificationPermission();
-    //if (!permission) return null;
+    if (!permission) return null;
 
     const token = await getExpoPushToken();
     if (!token) return null;
