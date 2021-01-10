@@ -2,7 +2,7 @@
   "expo": {
     "name": "HouseOfChat",
     "slug": "HouseOfChat",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "privacy": "public",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
